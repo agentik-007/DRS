@@ -1,0 +1,16 @@
+[
+{
+  "modid": "darkroleplay",
+  "name": "Dark Roleplay",
+  "description": "A RPG style Mod W.I.P.",
+  "version": "0.1.6",
+  "mcversion": "1.8",
+  "url": "http://dark-roleplay.jimdo.com/",
+  "updateUrl": "",
+  "authorList": ["JTK222"],
+  "credits": "JTK for coding moddeling and texturing everything",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
