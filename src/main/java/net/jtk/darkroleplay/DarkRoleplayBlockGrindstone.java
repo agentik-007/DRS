@@ -9,10 +9,8 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,14 +23,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 public class DarkRoleplayBlockGrindstone extends BlockContainer {
 
@@ -126,34 +120,7 @@ public class DarkRoleplayBlockGrindstone extends BlockContainer {
 class TileEntityCustomGrindstone extends TileEntity {
 }
 
-class ItemRendererBlockGrindstone implements IItemRenderer {
 
-	private ModelGrindstone model;
-
-	public ItemRendererBlockGrindstone() {
-		model = new ModelGrindstone();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomGrindstone(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererGrindstone extends TileEntitySpecialRenderer {
 
@@ -165,7 +132,7 @@ class customRendererGrindstone extends TileEntitySpecialRenderer {
 	public customRendererGrindstone() {
 		this.model = new ModelGrindstone();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -176,9 +143,9 @@ class customRendererGrindstone extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

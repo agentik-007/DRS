@@ -22,7 +22,7 @@ public class customRendererHangingBridgeOne extends TileEntitySpecialRenderer {
 	public customRendererHangingBridgeOne() {
 		this.model = new ModelHangingBridgeOne();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,double z, float f, int i) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
@@ -32,9 +32,9 @@ public class customRendererHangingBridgeOne extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef((facing-1) * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

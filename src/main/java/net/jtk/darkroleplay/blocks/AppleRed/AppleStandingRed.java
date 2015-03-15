@@ -16,7 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -120,32 +120,4 @@ public class AppleStandingRed extends BlockContainer {
 		GameRegistry.registerBlock(blockAppleStandingRed, "blockAppleStandingRed");
 		GameRegistry.registerTileEntity(TileEntityCustomAppleStandingRed.class, "TileEntityAppleStandingRed");
 	}
-}
-class ItemRendererBlockAppleStandingRed implements IItemRenderer {
-
-	private ModelAppleStandingRed model;
-	
-	public ItemRendererBlockAppleStandingRed() {
-		model = new ModelAppleStandingRed();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomAppleStandingRed(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
 }

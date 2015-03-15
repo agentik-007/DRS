@@ -14,7 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -156,7 +156,7 @@ class customRendererLargeFirepit extends TileEntitySpecialRenderer {
 	public customRendererLargeFirepit() {
 		this.model = new ModelLargeFirepit();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -167,9 +167,9 @@ class customRendererLargeFirepit extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.05F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

@@ -1,0 +1,79 @@
+package net.jtk.darkroleplay.blocks.Barrels;
+
+import org.lwjgl.opengl.GL11;
+
+import net.jtk.darkroleplay.DarkRoleplay;
+import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+public class BarrelClosed extends BlockContainer {
+
+	public static Block blockBarrelClosed;
+
+	public static Object instance;
+
+	public BarrelClosed() {
+		super(Material.wood);
+	}
+
+	static {
+
+		blockBarrelClosed = new BarrelClosed().setHardness(2.0F)
+				.setResistance(10.0F).setLightLevel(0.0F)
+				.setUnlocalizedName("blockBarrelClosed")
+				.setStepSound(Block.soundTypeWood)
+				.setCreativeTab(DarkRoleplayTabs.drBlocksTab);
+		blockBarrelClosed.setBlockBounds(1.0F / 16F * 0F, 0.0F, 1.0F / 16F * 0F,
+				1.0F / 16F * 16F, 1.0F / 16F * 16F, 1.0F / 16F * 16F);
+	}
+
+	public int getRenderType() {
+		return -1;
+	}
+
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityCustomBarrelClosed();
+	}
+
+	public static void serverLoad(FMLServerStartingEvent event) {
+	}
+
+	public static void Init(FMLInitializationEvent event){
+		GameRegistry.addRecipe(new ItemStack(BarrelClosed.blockBarrelClosed, 1), "XYX", "X X", "ZXZ", 'X', Blocks.planks, 'Z', Items.iron_ingot,'Y',Blocks.wooden_slab);
+	}
+	
+	public static void preInit(FMLPreInitializationEvent event) {
+		GameRegistry.registerBlock(blockBarrelClosed, "blockBarrelClosed");
+		GameRegistry.registerTileEntity(TileEntityCustomBarrelClosed.class, "TileEntityBarrelClosed");
+	}
+}
+

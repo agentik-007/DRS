@@ -7,7 +7,6 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -69,34 +68,6 @@ public class DarkRoleplayBlockCauldronCookingTwo extends BlockContainer {
 class TileEntityCustomCauldronCookingTwo extends TileEntity {
 }
 
-class ItemRendererBlockCauldronCookingTwo implements IItemRenderer {
-
-	private ModelCauldronCookingTwo model;
-
-	public ItemRendererBlockCauldronCookingTwo() {
-		model = new ModelCauldronCookingTwo();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomCauldronCookingTwo(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererCauldronCookingTwo extends TileEntitySpecialRenderer {
 
@@ -108,7 +79,7 @@ class customRendererCauldronCookingTwo extends TileEntitySpecialRenderer {
 	public customRendererCauldronCookingTwo() {
 		this.model = new ModelCauldronCookingTwo();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -116,9 +87,9 @@ class customRendererCauldronCookingTwo extends TileEntitySpecialRenderer {
 		GL11.glRotatef(180, 0F, 0F, 1F);
 		GL11.glRotatef(tileentity.getBlockMetadata() * 90, 0.0F, 1.0F, 0.0F);
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

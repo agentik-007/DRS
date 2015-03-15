@@ -6,24 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -32,14 +23,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.WorldInfo;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DarkRoleplayBlockDungeonChest extends BlockContainer {
 	
@@ -173,7 +159,7 @@ class customRendererDungeonChest extends TileEntitySpecialRenderer {
 	public customRendererDungeonChest() {
 		this.model = new ModelDungeonChest();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -184,9 +170,9 @@ class customRendererDungeonChest extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

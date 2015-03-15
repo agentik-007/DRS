@@ -18,20 +18,57 @@ import net.jtk.darkroleplay.blocks.AppleYellow.TileEntityCustomAppleHangingYello
 import net.jtk.darkroleplay.blocks.AppleYellow.TileEntityCustomAppleStandingYellow;
 import net.jtk.darkroleplay.blocks.AppleYellow.customRendererAppleHangingYellow;
 import net.jtk.darkroleplay.blocks.AppleYellow.customRendererAppleStandingYellow;
-import net.jtk.darkroleplay.blocks.HangingBridge.DarkRoleplayBlockHangingBridgeOne;
-import net.jtk.darkroleplay.blocks.HangingBridge.DarkRoleplayBlockHangingBridgeTwo;
-import net.jtk.darkroleplay.blocks.HangingBridge.RenderItemHangingBridgeOne;
+import net.jtk.darkroleplay.blocks.Barrels.BarrelGunPowder;
+import net.jtk.darkroleplay.blocks.Barrels.BarrelClosed;
+import net.jtk.darkroleplay.blocks.Barrels.BarrelEmpty;
+import net.jtk.darkroleplay.blocks.Barrels.TileEntityCustomBarrelClosed;
+import net.jtk.darkroleplay.blocks.Barrels.TileEntityCustomBarrelEmpty;
+import net.jtk.darkroleplay.blocks.Barrels.TileEntityCustomBarrelGunPowder;
+import net.jtk.darkroleplay.blocks.Barrels.customRendererBarrelClosed;
+import net.jtk.darkroleplay.blocks.Barrels.customRendererBarrelEmpty;
+import net.jtk.darkroleplay.blocks.Barrels.customRendererBarrelGunPowder;
+import net.jtk.darkroleplay.blocks.Buckets.BucketWater;
+import net.jtk.darkroleplay.blocks.Buckets.BucketDirt;
+import net.jtk.darkroleplay.blocks.Buckets.BucketEmpty;
+import net.jtk.darkroleplay.blocks.Buckets.BucketFlowerOne;
+import net.jtk.darkroleplay.blocks.Buckets.TileEntityCustomBucketDirt;
+import net.jtk.darkroleplay.blocks.Buckets.TileEntityCustomBucketEmpty;
+import net.jtk.darkroleplay.blocks.Buckets.TileEntityCustomBucketFlowerOne;
+import net.jtk.darkroleplay.blocks.Buckets.TileEntityCustomBucketWater;
+import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketDirt;
+import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketEmpty;
+import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketFlowerOne;
+import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketWater;
+import net.jtk.darkroleplay.blocks.HangingBridge.HangingBridgeOne;
+import net.jtk.darkroleplay.blocks.HangingBridge.HangingBridgeTwo;
 import net.jtk.darkroleplay.blocks.HangingBridge.TileEntityCustomHangingBridgeOne;
 import net.jtk.darkroleplay.blocks.HangingBridge.TileEntityCustomHangingBridgeTwo;
 import net.jtk.darkroleplay.blocks.HangingBridge.customRendererHangingBridgeOne;
 import net.jtk.darkroleplay.blocks.HangingBridge.customRendererHangingBridgeTwo;
-import net.jtk.darkroleplay.guis.ManaBar;
-import net.jtk.darkroleplay.items.*;
+import net.jtk.darkroleplay.blocks.KeyHanging.KeyHanging;
+import net.jtk.darkroleplay.blocks.KeyHanging.TileEntityCustomKeyHanging;
+import net.jtk.darkroleplay.blocks.KeyHanging.customRendererKeyHanging;
+import net.jtk.darkroleplay.blocks.ShipSteeringWheel.ShipSteeringWheel;
+import net.jtk.darkroleplay.blocks.ShipSteeringWheel.TileEntityCustomShipSteeringWheel;
+import net.jtk.darkroleplay.blocks.ShipSteeringWheel.customRendererShipSteeringWheel;
+import net.jtk.darkroleplay.blocks.Target.Target;
+import net.jtk.darkroleplay.blocks.Target.TileEntityCustomTarget;
+import net.jtk.darkroleplay.blocks.Target.customRendererTarget;
+import net.jtk.darkroleplay.guis.MoneyGui;
+import net.jtk.darkroleplay.items.DarkRoleplayFood;
+import net.jtk.darkroleplay.items.itemBatEar;
+import net.jtk.darkroleplay.items.itemCoinBronze;
+import net.jtk.darkroleplay.items.itemCoinGold;
+import net.jtk.darkroleplay.items.itemCoinSilver;
+import net.jtk.darkroleplay.items.itemDough;
+import net.jtk.darkroleplay.items.itemFirewood;
+import net.jtk.darkroleplay.items.itemFlour;
+import net.jtk.darkroleplay.items.itemFurWolf;
+import net.jtk.darkroleplay.items.itemPurse;
+import net.jtk.darkroleplay.items.itemScrollTeleport;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
@@ -39,9 +76,11 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 public class ClientProxy extends CommonProxy{
 	
 	public void registerRandomStuff() {
-		//MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(DarkRoleplayBlockDungeonChest.blockDungeonChest), new ItemRendererBlockDungeonChest());
-		
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomDungeonChest.class,new customRendererDungeonChest());
+	}
+	public void registerInitStuff(){
+		//TileEntitySpecialRenderer
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomTarget.class, new customRendererTarget());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomDungeonChest.class,new customRendererDungeonChest());	
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomCrate.class,new customRendererCrate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomSmallFirepit.class, new customRendererSmallFirepit());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomLargeFirepit.class, new customRendererLargeFirepit());
@@ -77,11 +116,13 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomAppleStandingGreen.class, new customRendererAppleStandingGreen());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomAppleHangingYellow.class, new customRendererAppleHangingYellow());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomAppleStandingYellow.class, new customRendererAppleStandingYellow());
-		//MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(DarkRoleplayBlockHangingBridgeOne.blockHangingBridgeOne), (IItemRenderer)new RenderItemHangingBridgeOne());
-	}
-	public void registerInitStuff(){
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomShipSteeringWheel.class, new customRendererShipSteeringWheel());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomKeyHanging.class, new customRendererKeyHanging());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomBarrelGunPowder.class, new customRendererBarrelGunPowder());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomBucketWater.class, new customRendererBucketWater());
 		
-		//MinecraftForge.EVENT_BUS.register(new ManaBar(Minecraft.getMinecraft()));
+		//Events
+		MinecraftForge.EVENT_BUS.register(new MoneyGui(Minecraft.getMinecraft()));
 		//Inventory	Texture
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemFlour.itemFlour,0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"itemFlour","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(DarkRoleplayFood.itemPear,0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"itemPear","inventory"));
@@ -95,17 +136,17 @@ public class ClientProxy extends CommonProxy{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockChoppingBlock.blockChoppingBlock),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"DarkRoleplayBlockChoppingBlock","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBatEar.itemBatEar,0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"itemBatEar","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemFurWolf.itemFurWolf,0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"itemFurWolf","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockHangingBridgeOne.blockHangingBridgeOne),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockHangingBridgeOne","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(HangingBridgeOne.blockHangingBridgeOne),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockHangingBridgeOne","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockDungeonChest.blockDungeonChest),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockDungeonChest","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockBarrelEmpty.blockBarrelEmpty),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBarrelEmpty","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockBucketDirt.blockBucketDirt),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketDirt","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockBucketEmpty.blockBucketEmpty),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketEmpty","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockBucketFlowerOne.blockBucketFlowerOne),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketFlowerOne","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BarrelEmpty.blockBarrelEmpty),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBarrelEmpty","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BucketDirt.blockBucketDirt),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketDirt","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BucketEmpty.blockBucketEmpty),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketEmpty","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BucketFlowerOne.blockBucketFlowerOne),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBucketFlowerOne","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockCrate.blockCrate),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockCrate","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockHangingBridgeTwo.blockHangingBridgeTwo),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockHangingBridgeTwo","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(HangingBridgeTwo.blockHangingBridgeTwo),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockHangingBridgeTwo","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockLargeFirepit.blockLargeFirepit),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockLargeFirepit","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockSmallFirepit.blockSmallFirepit),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockSmallFirepit","inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockBarrelClosed.blockBarrelClosed),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBarrelClosed","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BarrelClosed.blockBarrelClosed),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockBarrelClosed","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockChoppingBlock.blockChoppingBlock),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockChoppingBlock","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockRope.blockRope),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockRope","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(DarkRoleplayBlockCauldron.blockCauldron),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockCauldron","inventory"));
@@ -130,5 +171,15 @@ public class ClientProxy extends CommonProxy{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(AppleStandingGreen.blockAppleStandingGreen),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockAppleStandingGreen","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(AppleHangingYellow.blockAppleHangingYellow),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockAppleHangingYellow","inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(AppleStandingYellow.blockAppleStandingYellow),0, new ModelResourceLocation(DarkRoleplay.MODID + ":"+"blockAppleStandingYellow","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BucketWater.blockBucketWater), 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockBucketWater", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BarrelGunPowder.blockBarrelGunPowder), 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockBarrelGunPowder", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(ShipSteeringWheel.blockShipSteeringWheel), 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockShipSteeringWheel", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Target.blockTarget), 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockTarget", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(KeyHanging.blockKeyHanging), 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockKeyHanging", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemCoinBronze.itemCoinBronze,0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "itemCoinBronze", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemCoinSilver.itemCoinSilver,0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "itemCoinSilver", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemCoinGold.itemCoinGold,0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "itemCoinGold", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemPurse.itemPurse,0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "itemPurse", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemScrollTeleport.itemScrollTeleport,0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "itemScrollTeleport", "inventory"));
 	}
 }

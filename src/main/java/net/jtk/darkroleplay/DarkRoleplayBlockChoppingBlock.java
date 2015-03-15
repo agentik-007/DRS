@@ -13,7 +13,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -156,34 +155,6 @@ public class DarkRoleplayBlockChoppingBlock extends BlockContainer {
 class TileEntityCustomChoppingBlock extends TileEntity {
 }
 
-class ItemRendererBlockChoppingBlock implements IItemRenderer {
-
-	private ModelChoppingBlock model;
-
-	public ItemRendererBlockChoppingBlock() {
-		model = new ModelChoppingBlock();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomChoppingBlock(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererChoppingBlock extends TileEntitySpecialRenderer {
 
@@ -195,7 +166,7 @@ class customRendererChoppingBlock extends TileEntitySpecialRenderer {
 	public customRendererChoppingBlock() {
 		this.model = new ModelChoppingBlock();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f, int i) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
@@ -205,9 +176,9 @@ class customRendererChoppingBlock extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix(); 
 	}
 

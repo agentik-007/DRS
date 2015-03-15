@@ -12,7 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -108,34 +108,6 @@ public class DarkRoleplayBlockPotionEmpty extends BlockContainer {
 class TileEntityCustomPotionEmpty extends TileEntity {
 }
 
-class ItemRendererBlockPotionEmpty implements IItemRenderer {
-
-	private ModelPotionEmpty model;
-
-	public ItemRendererBlockPotionEmpty() {
-		model = new ModelPotionEmpty();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomPotionEmpty(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererPotionEmpty extends TileEntitySpecialRenderer {
 
@@ -147,7 +119,7 @@ class customRendererPotionEmpty extends TileEntitySpecialRenderer {
 	public customRendererPotionEmpty() {
 		this.model = new ModelPotionEmpty();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -159,9 +131,9 @@ class customRendererPotionEmpty extends TileEntitySpecialRenderer {
 		GL11.glRotatef(facing * 45, 0.0F, 1.0F, 0.0F); 
 		GL11.glEnable(GL11.GL_BLEND);
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

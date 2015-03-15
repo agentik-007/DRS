@@ -22,7 +22,7 @@ public class customRendererAppleHangingGreen extends TileEntitySpecialRenderer {
 	public customRendererAppleHangingGreen() {
 		this.model = new ModelAppleHangingGreen();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -33,9 +33,9 @@ public class customRendererAppleHangingGreen extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

@@ -14,13 +14,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
@@ -62,7 +63,7 @@ public class DarkRoleplayBlockSmallFirepit extends BlockContainer {
 				1.0F / 16F * 0F, 1.0F / 16F * 16F, 1.0F / 16F * 10F,
 				1.0F / 16F * 16F);
 	}
-
+	
 	public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(DIR, Integer.valueOf(meta));
@@ -143,34 +144,6 @@ public class DarkRoleplayBlockSmallFirepit extends BlockContainer {
 class TileEntityCustomSmallFirepit extends TileEntity {
 }
 
-class ItemRendererSmallFirepit implements IItemRenderer {
-
-	private ModelSmallFirepit model;
-
-	public ItemRendererSmallFirepit() {
-		model = new ModelSmallFirepit();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomSmallFirepit(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererSmallFirepit extends TileEntitySpecialRenderer {
 
@@ -182,7 +155,7 @@ class customRendererSmallFirepit extends TileEntitySpecialRenderer {
 	public customRendererSmallFirepit() {
 		this.model = new ModelSmallFirepit();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -193,9 +166,9 @@ class customRendererSmallFirepit extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.03125F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

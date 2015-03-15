@@ -12,7 +12,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -115,34 +114,6 @@ public class DarkRoleplayBlockHook extends BlockContainer {
 class TileEntityCustomHook extends TileEntity {
 }
 
-class ItemRendererBlockHook implements IItemRenderer {
-
-	private ModelHook model;
-
-	public ItemRendererBlockHook() {
-		model = new ModelHook();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomHook(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
 
 class customRendererHook extends TileEntitySpecialRenderer {
 
@@ -154,7 +125,7 @@ class customRendererHook extends TileEntitySpecialRenderer {
 	public customRendererHook() {
 		this.model = new ModelHook();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -165,9 +136,9 @@ class customRendererHook extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef((facing+1) * 90, 0.0F, 1.0F, 0.0F);
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 

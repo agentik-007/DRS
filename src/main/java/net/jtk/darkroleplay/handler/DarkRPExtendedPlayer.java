@@ -1,5 +1,7 @@
 package net.jtk.darkroleplay.handler;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,35 +11,26 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class DarkRPExtendedPlayer implements IExtendedEntityProperties
 {
 
-public final static String EXT_PROP_NAME = "DarkRPMana";
+public final static String EXT_MONEY = "DarkRPMoney";
 
 private final EntityPlayer player;
 
-private int currentMana, maxMana;
+private int BronzeCoins, SilverCoins, GoldCoins;
 
 public DarkRPExtendedPlayer(EntityPlayer player)
 {
 this.player = player;
-// Start with max mana. Every player starts with the same amount.
-this.currentMana = this.maxMana = 50;
+this.BronzeCoins = this.SilverCoins = this.GoldCoins = 0;
 }
 
-/*
-Used to register these extended properties for the player during EntityConstructing event
-This method is for convenience only; it will make your code look nicer
-*/
 public static final void register(EntityPlayer player)
 {
-player.registerExtendedProperties(DarkRPExtendedPlayer.EXT_PROP_NAME, new DarkRPExtendedPlayer(player));
+player.registerExtendedProperties(DarkRPExtendedPlayer.EXT_MONEY, new DarkRPExtendedPlayer(player));
 }
 
-/*
- Returns DarkRPMana properties for player
- This method is for convenience only; it will make your code look nicer
-*/
 public static final DarkRPExtendedPlayer get(EntityPlayer player)
 {
-return (DarkRPExtendedPlayer) player.getExtendedProperties(EXT_PROP_NAME);
+return (DarkRPExtendedPlayer) player.getExtendedProperties(EXT_MONEY);
 }
 
 // Save any custom data that needs saving here
@@ -48,20 +41,22 @@ public void saveNBTData(NBTTagCompound compound)
 NBTTagCompound properties = new NBTTagCompound();
 
 // We only have 2 variables currently; save them both to the new tag
-properties.setInteger("CurrentMana", this.currentMana);
-properties.setInteger("MaxMana", this.maxMana);
+properties.setInteger("BronzeCoins", this.BronzeCoins);
+properties.setInteger("SilverCoins", this.SilverCoins);
+properties.setInteger("GoldCoins", this.GoldCoins);
 
 
-compound.setTag(EXT_PROP_NAME, properties);
+compound.setTag(EXT_MONEY, properties);
 }
 
 // Load whatever data you saved
 @Override
 public void loadNBTData(NBTTagCompound compound)
 {
-NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
-this.currentMana = properties.getInteger("CurrentMana");
-this.maxMana = properties.getInteger("MaxMana");
+NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_MONEY);
+this.BronzeCoins = properties.getInteger("BronzeCoins");
+this.SilverCoins = properties.getInteger("SilverCoins");
+this.GoldCoins = properties.getInteger("GoldCoins");
 }
 
 @Override
@@ -70,24 +65,45 @@ public void init(Entity entity, World world)
 }
 
 
-public boolean consumeMana(int amount)
+public boolean consumeMoney(int takeGoldCoins,int takeSilverCoins, int takeBronzeCoins)
 {
-boolean sufficient = amount <= this.currentMana;
-this.currentMana -= (amount < this.currentMana ? amount : this.currentMana);
-return sufficient;
+	
+boolean sufficient = takeGoldCoins <= this.GoldCoins;
+if(sufficient = true)
+{
+	sufficient = takeSilverCoins <= this.SilverCoins;
+	if(sufficient = true){
+		sufficient = takeBronzeCoins <= this.BronzeCoins;
+		if(sufficient = true){
+			this.GoldCoins -= (takeGoldCoins < this.GoldCoins ? takeGoldCoins : this.GoldCoins);
+			this.SilverCoins -= (takeSilverCoins < this.SilverCoins ? takeSilverCoins : this.SilverCoins);
+			this.BronzeCoins -= (takeBronzeCoins < this.BronzeCoins ? takeBronzeCoins : this.BronzeCoins);
+			return true;
+		}else{return false;}
+	}else{return false;}	
+}else{return false;}
 }
 
-public void refillMana()
+public void giveMoney(int giveGoldCoins, int giveSilverCoins,int giveBronzeCoins)
 {
-this.currentMana = this.maxMana;
+this.GoldCoins = this.GoldCoins + giveGoldCoins;
+this.SilverCoins = this.SilverCoins + giveSilverCoins;
+this.BronzeCoins = this.BronzeCoins + giveBronzeCoins;
+while(this.BronzeCoins >=100){
+	this.BronzeCoins -= 100;
+	this.SilverCoins += 1;
 }
-
-public int getMaxMana()
-{
-	return this.maxMana;
+while(this.SilverCoins >= 100){
+	this.SilverCoins -= 100;
+	this.GoldCoins += 1;
 }
-public int getCurrentMana()
+}
+public ArrayList<Integer> getCurrentMoney()
 {
-	return this.currentMana;
+	ArrayList<Integer> AllMoney = new ArrayList<Integer>();
+	AllMoney.add(this.GoldCoins);
+	AllMoney.add(this.SilverCoins);
+	AllMoney.add(this.BronzeCoins);
+	return AllMoney;
 }
 }

@@ -14,7 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +24,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -117,35 +118,6 @@ public class DarkRoleplayBlockTrainingsDummy extends BlockContainer {
 class TileEntityCustomTrainingsDummy extends TileEntity {
 }
 
-class ItemRendererBlockTrainingsDummy implements IItemRenderer {
-
-	private ModelTrainingsDummy model;
-
-	public ItemRendererBlockTrainingsDummy() {
-		model = new ModelTrainingsDummy();
-	}
-
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-
-		return true;
-	}
-
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		TileEntityRendererDispatcher.instance.renderTileEntityAt(
-				new TileEntityCustomTrainingsDummy(), 0.0D, 0.0D, 0.0D, 0.0F);
-	}
-
-}
-
 class customRendererTrainingsDummy extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(
@@ -156,7 +128,7 @@ class customRendererTrainingsDummy extends TileEntitySpecialRenderer {
 	public customRendererTrainingsDummy() {
 		this.model = new ModelTrainingsDummy();
 	}
-
+	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
 		GL11.glPushMatrix();
@@ -167,9 +139,9 @@ class customRendererTrainingsDummy extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef((facing -4)* 22.5F, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-		GL11.glPushMatrix();
+		
 		this.model.renderModel(0.0625F);
-		GL11.glPopMatrix();
+
 		GL11.glPopMatrix();
 	}
 
