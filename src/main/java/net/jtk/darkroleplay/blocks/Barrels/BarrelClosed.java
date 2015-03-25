@@ -2,8 +2,8 @@ package net.jtk.darkroleplay.blocks.Barrels;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -62,18 +62,6 @@ public class BarrelClosed extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomBarrelClosed();
-	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void Init(FMLInitializationEvent event){
-		GameRegistry.addRecipe(new ItemStack(BarrelClosed.blockBarrelClosed, 1), "XYX", "X X", "ZXZ", 'X', Blocks.planks, 'Z', Items.iron_ingot,'Y',Blocks.wooden_slab);
-	}
-	
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockBarrelClosed, "blockBarrelClosed");
-		GameRegistry.registerTileEntity(TileEntityCustomBarrelClosed.class, "TileEntityBarrelClosed");
 	}
 }
 

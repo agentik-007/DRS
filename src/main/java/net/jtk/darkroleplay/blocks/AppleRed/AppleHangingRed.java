@@ -4,8 +4,8 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -123,16 +123,9 @@ public class AppleHangingRed extends BlockContainer {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomAppleHangingRed();
 	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void Init(FMLInitializationEvent event){
-		GameRegistry.addRecipe(new ItemStack(AppleHangingRed.blockAppleHangingRed , 1), " X ", "   ", "   ", 'X', Items.apple);
-	}
-	
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockAppleHangingRed, "blockAppleHangingRed");
-		GameRegistry.registerTileEntity(TileEntityCustomAppleHangingRed.class, "TileEntityAppleHangingRed");
-	}
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
 }

@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.Buckets;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -83,13 +83,10 @@ public class BucketWater extends BlockContainer {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomBucketWater();
 	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockBucketWater, "blockBucketWater");
-		GameRegistry.registerTileEntity(TileEntityCustomBucketWater.class, "TileEntityBucketWater");
-	}
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
 }
 

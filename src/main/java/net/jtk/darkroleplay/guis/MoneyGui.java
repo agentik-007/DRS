@@ -3,10 +3,10 @@ package net.jtk.darkroleplay.guis;
 import java.util.List;
 import java.util.Stack;
 
-import net.jtk.darkroleplay.DarkRoleplay;
 import net.jtk.darkroleplay.handler.DarkRPExtendedPlayer;
 import net.jtk.darkroleplay.items.itemFurWolf;
 import net.jtk.darkroleplay.items.itemPurse;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;

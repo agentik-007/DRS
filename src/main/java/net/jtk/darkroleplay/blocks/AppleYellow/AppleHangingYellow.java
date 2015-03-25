@@ -4,9 +4,9 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
-import net.jtk.darkroleplay.DarkRoleplayTabs;
-import net.jtk.darkroleplay.items.DarkRoleplayFood;
+import net.jtk.darkroleplay.items.itemAppleYellow;
+import net.jtk.darkroleplay.main.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -77,7 +77,7 @@ public class AppleHangingYellow extends BlockContainer {
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-		return DarkRoleplayFood.itemAppleYellow;
+		return itemAppleYellow.itemAppleYellow;
     }
 	
     public int getMetaFromState(IBlockState state)
@@ -124,16 +124,10 @@ public class AppleHangingYellow extends BlockContainer {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomAppleHangingYellow();
 	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void Init(FMLInitializationEvent event){
-		GameRegistry.addRecipe(new ItemStack(AppleHangingYellow.blockAppleHangingYellow , 1), " X ", "   ", "   ", 'X', Items.apple);
-	}
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
 	
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockAppleHangingYellow, "blockAppleHangingYellow");
-		GameRegistry.registerTileEntity(TileEntityCustomAppleHangingYellow.class, "TileEntityAppleHangingYellow");
-	}
 }

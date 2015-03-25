@@ -2,7 +2,7 @@ package net.jtk.darkroleplay.items;
 
 import java.util.List;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,13 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class itemFurWolf{
 public static Item itemFurWolf;
-	
-	public static void Init(FMLInitializationEvent event){
-	}
-	public static void serverLoad(FMLServerStartingEvent event){}
-	public static void preInit(FMLPreInitializationEvent event){
-		GameRegistry.registerItem(itemFurWolf, "itemFurWolf");
-	}
 	
 	static{
 		itemFurWolf = new Item()

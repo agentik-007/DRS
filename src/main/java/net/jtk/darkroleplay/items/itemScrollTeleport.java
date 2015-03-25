@@ -1,8 +1,9 @@
 package net.jtk.darkroleplay.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,24 +25,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class itemScrollTeleport extends Item{
 
 	public static Item itemScrollTeleport;
-
-	public static void Init(FMLInitializationEvent event) {
-	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerItem(itemScrollTeleport, "itemScrollTeleport");
-	}
-
+		
 	static {
 		itemScrollTeleport = new itemScrollTeleport()
 				.setUnlocalizedName("itemScrollTeleport")
+				.setMaxDamage(2)
+				.setNoRepair()
 				.setCreativeTab(DarkRoleplayTabs.drMiscTab);
 	}
 	public static Object instance;
-	
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
@@ -60,8 +52,9 @@ public class itemScrollTeleport extends Item{
 				float yaw = nbt_two.getFloat("yaw");
 				float pitch = nbt_two.getFloat("pitch");
 				
+				player.travelToDimension(dimension);
 				player.setPositionAndRotation(posX, posY, posZ, yaw, pitch);
-				stack.stackSize --;
+				stack.damageItem(1, player);
 				}else{
 					NBTTagCompound nbt = new NBTTagCompound();
 					nbt.setInteger("Dim", player.dimension);
@@ -79,17 +72,17 @@ public class itemScrollTeleport extends Item{
 					int posY = nbt_two.getInteger("posY");
 					int posZ = nbt_two.getInteger("posZ");
 					
-					player.addChatMessage(new ChatComponentTranslation("§5Bound to: "));
-					player.addChatMessage(new ChatComponentTranslation("§5PosX: " + posX));
-					player.addChatMessage(new ChatComponentTranslation("§5PosY: " + posY));
-					player.addChatMessage(new ChatComponentTranslation("§5PosZ: " + posZ));
+					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"Bound to: "));
+					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosX: " + posX));
+					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosY: " + posY));
+					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosZ: " + posZ));
 					
 				}
 			}
 		}else{
 			if(stack.getTagCompound() != null){
 				stack.getTagCompound().removeTag("coordinates");
-				player.addChatMessage(new ChatComponentTranslation("§4Position cleared!"));
+				player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"Position cleared!"));
 			}
 		}
         return stack;
@@ -107,13 +100,15 @@ public class itemScrollTeleport extends Item{
 			int posY = nbt_two.getInteger("posY");
 			int posZ = nbt_two.getInteger("posZ");
 		
-			tooltip.add("§5Bound to:");
-			tooltip.add("§5Pos X: " + posX);
-			tooltip.add("§5Pos Y: " + posY);
-			tooltip.add("§5Pos Z: " + posZ);
+			tooltip.add(EnumChatFormatting.DARK_PURPLE +"Bound to:");
+			tooltip.add(EnumChatFormatting.DARK_PURPLE +"Pos X: " + posX);
+			tooltip.add(EnumChatFormatting.DARK_PURPLE +"Pos Y: " + posY);
+			tooltip.add(EnumChatFormatting.DARK_PURPLE +"Pos Z: " + posZ);
 			}else{
-				tooltip.add("§5This Teleport Scroll isn't Bound!");
+				tooltip.add(EnumChatFormatting.DARK_PURPLE +"This Teleport Scroll isn't Bound!");
 			}
+		}else{
+			tooltip.add(EnumChatFormatting.DARK_PURPLE +"This Teleport Scroll isn't Bound!");
 		}
 	}
 	@Override

@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.items;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Items;
@@ -13,14 +13,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class itemFlour {
 	public static Item itemFlour;
-	
-	public static void Init(FMLInitializationEvent event){
-		GameRegistry.addShapelessRecipe(new ItemStack(itemFlour),Items.wheat);
-	}
-	public static void serverLoad(FMLServerStartingEvent event){}
-	public static void preInit(FMLPreInitializationEvent event){
-		GameRegistry.registerItem(itemFlour, "itemFlour");
-	}
 	
 	static{
 		itemFlour = new Item()

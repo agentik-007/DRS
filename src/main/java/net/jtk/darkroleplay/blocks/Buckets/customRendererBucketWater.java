@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.Buckets;
 
-import net.jtk.darkroleplay.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
@@ -33,9 +33,10 @@ public class customRendererBucketWater extends TileEntitySpecialRenderer{
 		GL11.glRotatef(facing * 90, 0.0F, 1.0F, 0.0F);
 		GL11.glEnable(GL11.GL_BLEND);
 		this.bindTexture(texture);
-
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		this.model.renderModel(0.0625F);
 
+		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 	}
 

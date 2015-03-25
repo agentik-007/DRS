@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.KeyHanging;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -109,9 +109,9 @@ public class KeyHanging extends BlockContainer{
 			public TileEntity createNewTileEntity(World world, int meta) {
 				return new TileEntityCustomKeyHanging();
 			}
-			
-			public static void preInit(FMLPreInitializationEvent event) {
-				GameRegistry.registerBlock(blockKeyHanging, "blockKeyHanging");
-				GameRegistry.registerTileEntity(TileEntityCustomKeyHanging.class, "TileEntityCustomKeyHanging");
-			}
+			@Override
+			public boolean isFullCube()
+		    {
+		        return false;
+		    }
 	}

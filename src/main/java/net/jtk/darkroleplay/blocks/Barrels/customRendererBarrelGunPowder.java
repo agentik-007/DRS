@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.Barrels;
 
-import net.jtk.darkroleplay.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;

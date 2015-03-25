@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.ShipSteeringWheel;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockSlab;
@@ -42,10 +42,6 @@ public class ShipSteeringWheel extends BlockContainer {
 				.setCreativeTab(DarkRoleplayTabs.drBlocksTab);
 		blockShipSteeringWheel.setBlockBounds(1.0F / 16F * 0F, 0.0F, 1.0F / 16F * 0F,
 				1.0F / 16F * 16F, 1.0F / 16F * 2F, 1.0F / 16F * 16F);
-	}
-	
-	public static void Init(FMLInitializationEvent event){
-		
 	}
 	
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos){
@@ -110,9 +106,9 @@ public class ShipSteeringWheel extends BlockContainer {
 		public TileEntity createNewTileEntity(World world, int meta) {
 			return new TileEntityCustomShipSteeringWheel();
 		}
-		
-		public static void preInit(FMLPreInitializationEvent event) {
-			GameRegistry.registerBlock(blockShipSteeringWheel, "blockShipSteeringWheel");
-			GameRegistry.registerTileEntity(TileEntityCustomShipSteeringWheel.class, "TileEntityCustomShipSteeringWheel");
-		}
+		@Override
+		public boolean isFullCube()
+	    {
+	        return false;
+	    }
 }

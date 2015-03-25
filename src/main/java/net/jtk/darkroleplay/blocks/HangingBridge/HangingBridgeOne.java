@@ -2,9 +2,9 @@ package net.jtk.darkroleplay.blocks.HangingBridge;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
-import net.jtk.darkroleplay.DarkRoleplayBlockRope;
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.blocks.Rope.BlockRope;
+import net.jtk.darkroleplay.main.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -15,7 +15,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -100,16 +99,5 @@ public class HangingBridgeOne extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomHangingBridgeOne();
-	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void Init(FMLInitializationEvent event){
-		GameRegistry.addRecipe(new ItemStack(HangingBridgeOne.blockHangingBridgeOne, 1), "Y Y", "Z Z", "XXX", 'X', Blocks.wooden_slab, 'Z', Items.string,'Y', DarkRoleplayBlockRope.blockRope);
-	}
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockHangingBridgeOne, "blockHangingBridgeOne");
-		GameRegistry.registerTileEntity(TileEntityCustomHangingBridgeOne.class, "TileEntityHangingBridgeOne");
 	}
 }

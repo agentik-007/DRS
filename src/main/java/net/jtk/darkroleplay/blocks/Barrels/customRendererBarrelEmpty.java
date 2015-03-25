@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.Barrels;
 
-import net.jtk.darkroleplay.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

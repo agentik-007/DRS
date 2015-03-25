@@ -2,12 +2,13 @@ package net.jtk.darkroleplay.items;
 
 import java.util.List;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -20,12 +21,6 @@ public class itemPurse extends Item{
 
 	public static Object instance;
 	public static Item itemPurse;
-	
-	public static void Init(FMLInitializationEvent event){}
-	public static void serverLoad(FMLServerStartingEvent event){}
-	public static void preInit(FMLPreInitializationEvent event){
-		GameRegistry.registerItem(itemPurse, "itemPurse");
-	}
 	
 	static{
 		itemPurse = new itemPurse()
@@ -46,12 +41,12 @@ public class itemPurse extends Item{
 		int CoinsSilver = nbt.getInteger("CoinsSilver");
 		int CoinsBronze = nbt.getInteger("CoinsBronze");
 		
-		tooltip.add("§5Bound to      : " + player);
-		tooltip.add("§5Gold Coins    : " + CoinsGold);
-		tooltip.add("§5Silver Coins  : " + CoinsSilver);
-		tooltip.add("§5Bronze Coins: " + CoinsBronze);
+		tooltip.add(EnumChatFormatting.DARK_PURPLE +"Bound to      : " + player);
+		tooltip.add(EnumChatFormatting.DARK_PURPLE +"Gold Coins    : " + CoinsGold);
+		tooltip.add(EnumChatFormatting.DARK_PURPLE +"Silver Coins  : " + CoinsSilver);
+		tooltip.add(EnumChatFormatting.DARK_PURPLE +"Bronze Coins: " + CoinsBronze);
 		}else{
-			tooltip.add("§5This purse isn't bound!");
+			tooltip.add(EnumChatFormatting.DARK_RED +"This purse isn't bound!");
 		}
 	}
 	
@@ -72,7 +67,7 @@ public class itemPurse extends Item{
 			stack.getTagCompound();
 		}else{
 			if(stack.getTagCompound().hasKey("coins")){
-				player.addChatMessage(new ChatComponentTranslation("§4This purse is already bound!"));
+				player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"This purse is already bound!"));
 			}
 		}
 		

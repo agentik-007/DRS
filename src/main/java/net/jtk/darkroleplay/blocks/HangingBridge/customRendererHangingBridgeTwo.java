@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.HangingBridge;
 
-import net.jtk.darkroleplay.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;
@@ -33,7 +33,6 @@ public class customRendererHangingBridgeTwo extends TileEntitySpecialRenderer {
 		int facing = (((Integer) state.getValue(DIR)).intValue());
 		GL11.glRotatef((facing-1) * 90, 0.0F, 1.0F, 0.0F); 
 		this.bindTexture(texture);
-
 		this.model.renderModel(0.0625F);
 
 		GL11.glPopMatrix();

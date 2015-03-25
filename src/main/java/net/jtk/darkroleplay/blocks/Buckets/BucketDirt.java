@@ -2,8 +2,8 @@ package net.jtk.darkroleplay.blocks.Buckets;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplay;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -14,7 +14,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -98,13 +97,10 @@ public class BucketDirt extends BlockContainer {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomBucketDirt();
 	}
-
-	public static void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	public static void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(blockBucketDirt, "blockBucketDirt");
-		GameRegistry.registerTileEntity(TileEntityCustomBucketDirt.class, "TileEntityBucketDirt");
-	}
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
 }
 

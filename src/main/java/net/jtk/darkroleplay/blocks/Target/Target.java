@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.blocks.Target;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockSlab;
@@ -44,10 +44,6 @@ public class Target extends BlockContainer {
 				1.0F / 16F * 16F, 1.0F / 16F * 16F, 1.0F / 16F * 16F);
 	}
 	
-	public static void Init(FMLInitializationEvent event){
-		
-	}
-	
 	public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(DIR, Integer.valueOf(meta));
@@ -87,10 +83,5 @@ public class Target extends BlockContainer {
 		@Override
 		public TileEntity createNewTileEntity(World world, int meta) {
 			return new TileEntityCustomTarget();
-		}
-		
-		public static void preInit(FMLPreInitializationEvent event) {
-			GameRegistry.registerBlock(blockTarget, "blockTarget");
-			GameRegistry.registerTileEntity(TileEntityCustomTarget.class, "TileEntityCustomTarget");
 		}
 }

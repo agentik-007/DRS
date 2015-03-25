@@ -2,8 +2,8 @@ package net.jtk.darkroleplay.blocks.KeyHanging;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.DarkRoleplay;
 import net.jtk.darkroleplay.blocks.KeyHanging.ModelKeyHanging;
+import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.model.ModelBase;

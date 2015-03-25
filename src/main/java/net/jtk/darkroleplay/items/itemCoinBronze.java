@@ -1,6 +1,6 @@
 package net.jtk.darkroleplay.items;
 
-import net.jtk.darkroleplay.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -14,13 +14,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class itemCoinBronze extends Item{
 public static Item itemCoinBronze;
-	
-	public static void Init(FMLInitializationEvent event){
-	}
-	public static void serverLoad(FMLServerStartingEvent event){}
-	public static void preInit(FMLPreInitializationEvent event){
-		GameRegistry.registerItem(itemCoinBronze, "itemCoinBronze");
-	}
 	
 	static{
 		itemCoinBronze = new itemCoinBronze()

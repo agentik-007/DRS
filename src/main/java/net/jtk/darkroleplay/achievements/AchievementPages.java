@@ -1,6 +1,5 @@
 package net.jtk.darkroleplay.achievements;
 
-import net.jtk.darkroleplay.items.DarkRoleplayFood;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
