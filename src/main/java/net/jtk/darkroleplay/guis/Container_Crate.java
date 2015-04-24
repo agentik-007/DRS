@@ -1,23 +1,22 @@
 package net.jtk.darkroleplay.guis;
 
-import net.jtk.darkroleplay.blocks.DungeonChest.TileEntityCustomDungeonChest;
+import net.jtk.darkroleplay.blocks.Crate.TileEntityCustomCrate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerDungeonChest extends Container{
-
-	public ContainerDungeonChest(IInventory playerInv, TileEntityCustomDungeonChest DungeonChest) {
+public class Container_Crate extends Container{
+	public Container_Crate(IInventory playerInv, TileEntityCustomCrate Crate) {
         int i = -18;
         int j;
         int k;
        
         int index = 0;
         for (j = 0; j < 3; ++j) {
-        	for (k = 0; k < 5; ++k) {
-        		this.addSlotToContainer(new Slot(DungeonChest.inventory, index++, 44 + k * 18, 17 + j * 18));
+        	for (k = 0; k < 3; ++k) {
+        		this.addSlotToContainer(new Slot(Crate.inventory, index++, 62 + k * 18, 17 + j * 18));
         	}
         }
 

@@ -11,14 +11,17 @@ public class GuiHandler implements IGuiHandler{
 
 	public static final int GUI_DUNGEONCHEST = 0;
 	public static final int GUI_CRATE = 1;
+	public static final int GUI_CRAFTING = 2;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,int x, int y, int z) {
 		switch(ID){
 			case GUI_DUNGEONCHEST:
-				return new ContainerDungeonChest(player.inventory,(TileEntityCustomDungeonChest) world.getTileEntity(new BlockPos(x,y,z)));
+				return new Container_DungeonChest(player.inventory,(TileEntityCustomDungeonChest) world.getTileEntity(new BlockPos(x,y,z)));
 			case GUI_CRATE:
-				return new ContainerCrate(player.inventory,(TileEntityCustomCrate) world.getTileEntity(new BlockPos(x,y,z)));
+				return new Container_Crate(player.inventory,(TileEntityCustomCrate) world.getTileEntity(new BlockPos(x,y,z)));
+			case GUI_CRAFTING:
+				return new Container_Crafting(player.inventory);
 			default: 
 				return null;
 		}	
@@ -28,9 +31,11 @@ public class GuiHandler implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
 		switch(ID){
 		case GUI_DUNGEONCHEST:
-			return new GuiDungeonChest(new ContainerDungeonChest(player.inventory,(TileEntityCustomDungeonChest) world.getTileEntity(new BlockPos(x,y,z))));
+			return new Gui_DungeonChest(new Container_DungeonChest(player.inventory,(TileEntityCustomDungeonChest) world.getTileEntity(new BlockPos(x,y,z))));
 		case GUI_CRATE:
-			return new GuiCrate(new ContainerCrate(player.inventory,(TileEntityCustomCrate) world.getTileEntity(new BlockPos(x,y,z))));
+			return new Gui_Crate(new Container_Crate(player.inventory,(TileEntityCustomCrate) world.getTileEntity(new BlockPos(x,y,z))));
+		case GUI_CRAFTING:
+			return new Gui_Crafting(new Container_Crafting(player.inventory), player);
 		default: 
 			return null;
 	}

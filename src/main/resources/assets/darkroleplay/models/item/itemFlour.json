@@ -4,7 +4,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "darkroleplay:/items/itemFlour"
+        "layer0": "darkroleplay:items/itemFlour"
     },
     "display": {
         "thirdperson": {

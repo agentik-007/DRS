@@ -20,7 +20,7 @@ public class TileEntityCustomCrate extends TileEntity{
 		
 		NBTTagList list = new NBTTagList();
 		
-		for(int i = 0;i > inventory.getSizeInventory();i++){
+		for(int i = 0;i < inventory.getSizeInventory();i++){
 			if(inventory.getStackInSlot(i) != null){
 				NBTTagCompound tag = new NBTTagCompound();
 				tag.setByte("Slot", (byte)i);

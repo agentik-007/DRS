@@ -25,6 +25,7 @@ public class itemPurse extends Item{
 	static{
 		itemPurse = new itemPurse()
 		.setUnlocalizedName("itemPurse")
+		.setMaxStackSize(1)
 		.setCreativeTab(DarkRoleplayTabs.drMiscTab);
 	}
 	
@@ -67,7 +68,9 @@ public class itemPurse extends Item{
 			stack.getTagCompound();
 		}else{
 			if(stack.getTagCompound().hasKey("coins")){
-				player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"This purse is already bound!"));
+				if(!world.isRemote){
+					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"This purse is already bound!"));
+				}
 			}
 		}
 		

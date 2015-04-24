@@ -5,10 +5,10 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiCrate extends GuiContainer{
+public class Gui_Crate extends GuiContainer{
 public static final ResourceLocation BACKGROUND = new ResourceLocation(DarkRoleplay.MODID+ ":textures/guis/GuiCrate.png");
 	
-	public GuiCrate(Container container_) {
+	public Gui_Crate(Container container_) {
 		super(container_);
 		
 	}

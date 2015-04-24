@@ -2,8 +2,10 @@ package net.jtk.darkroleplay.items;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.jtk.darkroleplay.main.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.loadConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -30,6 +32,7 @@ public class itemScrollTeleport extends Item{
 		itemScrollTeleport = new itemScrollTeleport()
 				.setUnlocalizedName("itemScrollTeleport")
 				.setMaxDamage(2)
+			    .setMaxStackSize(1)
 				.setNoRepair()
 				.setCreativeTab(DarkRoleplayTabs.drMiscTab);
 	}
@@ -38,54 +41,85 @@ public class itemScrollTeleport extends Item{
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-		if(!(player.isSneaking())){
-			if(stack.getTagCompound() == null){
-				stack.setTagCompound(new NBTTagCompound());
-			}else{
-				if(stack.getTagCompound().hasKey("coordinates")){
+		if(loadConfig.enableTeleportScroll){
+			
+				if(!(player.isSneaking())){
+					if(stack.getTagCompound() == null){
+						stack.setTagCompound(new NBTTagCompound());
+						NBTTagCompound nbt = new NBTTagCompound();
+						nbt.setInteger("Dim", player.dimension);
+						nbt.setInteger("posX", player.getPosition().getX());
+						nbt.setInteger("posY", player.getPosition().getY());
+						nbt.setInteger("posZ", player.getPosition().getZ());
+						nbt.setFloat("yaw", player.rotationYaw);
+						nbt.setFloat("pitch", player.rotationPitch);
+						stack.getTagCompound().setTag("coordinates", nbt);
+							
+							
+						NBTTagCompound nbt_two = (NBTTagCompound) stack.getTagCompound().getTag("coordinates");
+						int dimension = nbt_two.getInteger("Dim");
+						int posX = nbt_two.getInteger("posX");
+						int posY = nbt_two.getInteger("posY");
+						int posZ = nbt_two.getInteger("posZ");
+						
+						if(!world.isRemote){
+							player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"Bound to: "));
+							player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosX: " + posX));
+							player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosY: " + posY));
+							player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosZ: " + posZ));
+						}
+						
+					}else{
+						if(stack.getTagCompound().hasKey("coordinates")){			
+							NBTTagCompound nbt_two = (NBTTagCompound) stack.getTagCompound().getTag("coordinates");
+							int dimension = nbt_two.getInteger("Dim");
+							int posX = nbt_two.getInteger("posX");
+							int posY = nbt_two.getInteger("posY");
+							int posZ = nbt_two.getInteger("posZ");
+							float yaw = nbt_two.getFloat("yaw");
+							float pitch = nbt_two.getFloat("pitch");
+							
+							player.setPositionAndRotation(posX, posY, posZ, yaw, pitch);
+							player.setCustomNameTag("Test");
+							player.setWorld(world);
+							stack.damageItem(1, player);
+							
+						}else{
+							NBTTagCompound nbt = new NBTTagCompound();
+							nbt.setInteger("Dim", player.dimension);
+							nbt.setInteger("posX", player.getPosition().getX());
+							nbt.setInteger("posY", player.getPosition().getY());
+							nbt.setInteger("posZ", player.getPosition().getZ());
+							nbt.setFloat("yaw", player.rotationYaw);
+							nbt.setFloat("pitch", player.rotationPitch);
+							stack.getTagCompound().setTag("coordinates", nbt);
+							
+								
+							NBTTagCompound nbt_two = (NBTTagCompound) stack.getTagCompound().getTag("coordinates");
+							int dimension = nbt_two.getInteger("Dim");
+							int posX = nbt_two.getInteger("posX");
+							int posY = nbt_two.getInteger("posY");
+							int posZ = nbt_two.getInteger("posZ");
+							if(!world.isRemote){
+								player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"Bound to: "));
+								player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosX: " + posX));
+								player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosY: " + posY));
+								player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosZ: " + posZ));
+							}
+							
+						}
+					}
 					
-				NBTTagCompound nbt_two = (NBTTagCompound) stack.getTagCompound().getTag("coordinates");
-				int dimension = nbt_two.getInteger("Dim");
-				int posX = nbt_two.getInteger("posX");
-				int posY = nbt_two.getInteger("posY");
-				int posZ = nbt_two.getInteger("posZ");
-				float yaw = nbt_two.getFloat("yaw");
-				float pitch = nbt_two.getFloat("pitch");
-				
-				player.travelToDimension(dimension);
-				player.setPositionAndRotation(posX, posY, posZ, yaw, pitch);
-				stack.damageItem(1, player);
 				}else{
-					NBTTagCompound nbt = new NBTTagCompound();
-					nbt.setInteger("Dim", player.dimension);
-					nbt.setInteger("posX", player.getPosition().getX());
-					nbt.setInteger("posY", player.getPosition().getY());
-					nbt.setInteger("posZ", player.getPosition().getZ());
-					nbt.setFloat("yaw", player.rotationYaw);
-					nbt.setFloat("pitch", player.rotationPitch);
-					stack.getTagCompound().setTag("coordinates", nbt);
-					
-					
-					NBTTagCompound nbt_two = (NBTTagCompound) stack.getTagCompound().getTag("coordinates");
-					int dimension = nbt_two.getInteger("Dim");
-					int posX = nbt_two.getInteger("posX");
-					int posY = nbt_two.getInteger("posY");
-					int posZ = nbt_two.getInteger("posZ");
-					
-					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"Bound to: "));
-					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosX: " + posX));
-					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosY: " + posY));
-					player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_PURPLE +"PosZ: " + posZ));
-					
+				if(stack.getTagCompound() != null){
+					stack.getTagCompound().removeTag("coordinates");
+						if(!world.isRemote){
+								player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"Position cleared!"));
+						}
+					}
 				}
-			}
-		}else{
-			if(stack.getTagCompound() != null){
-				stack.getTagCompound().removeTag("coordinates");
-				player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.DARK_RED +"Position cleared!"));
-			}
 		}
-        return stack;
+        return stack; 
     }
 	
 	@Override

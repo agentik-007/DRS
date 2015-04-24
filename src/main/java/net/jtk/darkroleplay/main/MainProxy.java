@@ -1,5 +1,7 @@
 package net.jtk.darkroleplay.main;
 
+import java.io.File;
+
 import net.jtk.darkroleplay.blocks.blockPlaceholder;
 import net.jtk.darkroleplay.blocks.AppleGreen.AppleHangingGreen;
 import net.jtk.darkroleplay.blocks.AppleGreen.AppleStandingGreen;
@@ -83,6 +85,10 @@ import net.jtk.darkroleplay.blocks.Tombstones.TileEntityCustomTombstoneOne;
 import net.jtk.darkroleplay.blocks.Tombstones.TombstoneOne;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TileEntityCustomTrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
+import net.jtk.darkroleplay.events.DarkRoleplayEventHandler;
+import net.jtk.darkroleplay.events.Event_PlayerInteract;
+import net.jtk.darkroleplay.events.Event_PlayerPickup;
+import net.jtk.darkroleplay.handler.DarkRoleplayDropHandler;
 import net.jtk.darkroleplay.items.itemAppleGreen;
 import net.jtk.darkroleplay.items.itemAppleYellow;
 import net.jtk.darkroleplay.items.itemBatEar;
@@ -101,12 +107,22 @@ import net.jtk.darkroleplay.items.itemVegieStew;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class MainProxy {
+	
+	@EventHandler
+	public static void registerEvents(FMLInitializationEvent event){
+		MinecraftForge.EVENT_BUS.register(new Event_PlayerPickup());
+    	MinecraftForge.EVENT_BUS.register(new DarkRoleplayDropHandler());
+    	MinecraftForge.EVENT_BUS.register(new DarkRoleplayEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new Event_PlayerInteract());
+	}
 	
 	@EventHandler
 	public static void registerCrafting(FMLInitializationEvent event){
@@ -159,6 +175,17 @@ public class MainProxy {
 		/*Bread*/GameRegistry.addSmelting(new ItemStack(itemDough.itemDough, 1), new ItemStack(Items.bread, 1), 0.1F);
 	
 	}
+	@EventHandler
+	public static void registerDRPCrafting(FMLInitializationEvent event){
+		Configuration config = new Configuration(new File("config/DarkRoleplay/CraftingConfig.cfg"));
+		config.load();
+		
+		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelEmpty.blockBarrelEmpty.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),null, null,null,null, 1, new ItemStack(BarrelEmpty.blockBarrelEmpty, 1), Blocks.crafting_table);
+		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelClosed.blockBarrelClosed.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),new ItemStack(Blocks.wooden_slab,1), null,null,null, 1, new ItemStack(BarrelClosed.blockBarrelClosed, 1), Blocks.crafting_table);
+		
+		config.save();
+	}
+	
 	@EventHandler
 	public static void registerBlocks(FMLPreInitializationEvent event){
 		GameRegistry.registerBlock(blockPlaceholder.blockPlaceholder, "blockPlaceholder");

@@ -1,22 +1,25 @@
 package net.jtk.darkroleplay.guis;
 
-import net.jtk.darkroleplay.blocks.Crate.TileEntityCustomCrate;
+import net.jtk.darkroleplay.blocks.DungeonChest.TileEntityCustomDungeonChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerCrate extends Container{
-	public ContainerCrate(IInventory playerInv, TileEntityCustomCrate Crate) {
+public class Container_DungeonChest extends Container{
+
+	private TileEntityCustomDungeonChest chest= new TileEntityCustomDungeonChest();
+	
+	public Container_DungeonChest(IInventory playerInv, TileEntityCustomDungeonChest DungeonChest) {
         int i = -18;
         int j;
         int k;
        
         int index = 0;
         for (j = 0; j < 3; ++j) {
-        	for (k = 0; k < 3; ++k) {
-        		this.addSlotToContainer(new Slot(Crate.inventory, index++, 62 + k * 18, 17 + j * 18));
+        	for (k = 0; k < 5; ++k) {
+        		this.addSlotToContainer(new Slot(DungeonChest.inventory, index++, 44 + k * 18, 17 + j * 18));
         	}
         }
 
@@ -29,12 +32,6 @@ public class ContainerCrate extends Container{
         for (j = 0; j < 9; ++j) {
         	this.addSlotToContainer(new Slot(playerInv, j, 8 + j * 18, 160 + i));
         }
-	}
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
@@ -64,4 +61,9 @@ public class ContainerCrate extends Container{
 
     	return itemstack;
     }
+
+	@Override
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return true;
+	}
 }

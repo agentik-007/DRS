@@ -91,10 +91,7 @@ public class CommonProxy {
 	
 	public void registerEvents(){
 		
-		MinecraftForge.EVENT_BUS.register(new Event_PlayerPickup());
-    	MinecraftForge.EVENT_BUS.register(new DarkRoleplayDropHandler());
-    	MinecraftForge.EVENT_BUS.register(new DarkRoleplayEventHandler());
-    	MinecraftForge.EVENT_BUS.register(new Event_PlayerInteract());
+
     	
 	}
 	

@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Event_PlayerInteract {
+	@Deprecated
 	@SubscribeEvent
 	public void playerInteract(PlayerInteractEvent e)
 	{

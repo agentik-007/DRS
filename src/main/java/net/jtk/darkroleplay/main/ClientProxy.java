@@ -123,7 +123,8 @@ import net.jtk.darkroleplay.blocks.Tombstones.customRendererTombstoneOne;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TileEntityCustomTrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.customRendererTrainingsDummy;
-import net.jtk.darkroleplay.guis.MoneyGui;
+import net.jtk.darkroleplay.guis.DRPGuiTypeOne;
+import net.jtk.darkroleplay.guis.DRPGuiVersion;
 import net.jtk.darkroleplay.items.itemAppleGreen;
 import net.jtk.darkroleplay.items.itemAppleYellow;
 import net.jtk.darkroleplay.items.itemBatEar;
@@ -156,7 +157,8 @@ public class ClientProxy extends CommonProxy{
 	}
 	
 	public void registerEvents(){
-		MinecraftForge.EVENT_BUS.register(new MoneyGui(Minecraft.getMinecraft()));
+		MinecraftForge.EVENT_BUS.register(new DRPGuiTypeOne(Minecraft.getMinecraft()));
+		MinecraftForge.EVENT_BUS.register(new DRPGuiVersion(Minecraft.getMinecraft()));
 	}
 	
 	public void registerTileEntity(){

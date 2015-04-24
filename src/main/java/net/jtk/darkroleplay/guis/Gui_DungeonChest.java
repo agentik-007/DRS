@@ -5,11 +5,11 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiDungeonChest extends GuiContainer{
+public class Gui_DungeonChest extends GuiContainer{
 
 	public static final ResourceLocation BACKGROUND = new ResourceLocation(DarkRoleplay.MODID+ ":textures/guis/GuiDungeonChest.png");
 	
-	public GuiDungeonChest(Container container_) {
+	public Gui_DungeonChest(Container container_) {
 		super(container_);
 		
 	}

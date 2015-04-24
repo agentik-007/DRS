@@ -2,6 +2,8 @@ package net.jtk.darkroleplay.blocks.Grindstone;
 
 import org.lwjgl.opengl.GL11;
 
+import net.jtk.darkroleplay.guis.GuiHandler;
+import net.jtk.darkroleplay.main.CraftingManager;
 import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;
@@ -17,6 +19,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -83,13 +86,15 @@ public class Grindstone extends BlockContainer {
     {
     	if (worldIn.isRemote)
         {
+    		playerIn.openGui(DarkRoleplay.instance, GuiHandler.GUI_CRAFTING, worldIn, pos.getX(), pos.getY(), pos.getZ());
     		return true;
         }
     	else
     	{
     		playerIn.addChatMessage(new ChatComponentTranslation("This function is Work in Progress, sorry"));
-   			return true;
+    		
     	}
+    	return true;
     }
     
 	public int getRenderType() {
