@@ -1,7 +1,11 @@
 itemGroup.DRMiscTab=DarkRoleplay Misc
 itemGroup.DRFoodTab=Dark Roleplay Food
-itemGroup.DRBlocksTab=Dark Roleplay Blocks
+itemGroup.DRBlocksTab=Dark Roleplay Decoration
 
+warning.fullInventory=Your Inventory is full!
+itemInfo.manaUsage=Mana Usage:
+keyBinding.openCrafting=Open the Crafting Gui
+keyBinding.openInventory=Open the Inventory Gui
 
 item.itemDough.name=Dough
 item.itemFlour.name=Flour
@@ -18,6 +22,8 @@ item.itemCoinSilver.name=Silver Coin
 item.itemCoinGold.name=Gold Coins
 item.itemPurse.name=[W.I.P] Purse
 item.itemScrollTeleport.name=[W.I.P] Scroll (Teleport)
+item.potionMana1.name=[W.I.P] Mana Potion (Small)
+item.RingIron.name=[W.I.P]Iron Ring
 
 tile.blockPlaceholder.name=Placeholder
 tile.blockDungeonChest.name=[W.I.P] Dungeon Chest
@@ -60,3 +66,4 @@ tile.blockKeyHanging.name=[W.I.P] Hanging Key
 tile.blockBarrelGunPowder.name=Barrel (Gun Powder)
 tile.blockBucketWater.name=Bucket (Water)
 tile.blockTarget.name=Target
+tile.blockAnvil.name=Anvil

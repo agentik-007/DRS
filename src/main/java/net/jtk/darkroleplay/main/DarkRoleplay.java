@@ -26,7 +26,7 @@ import net.jtk.darkroleplay.blocks.Cauldrons.CauldronCookingOne;
 import net.jtk.darkroleplay.blocks.Cauldrons.CauldronCookingTwo;
 import net.jtk.darkroleplay.blocks.Chain.Chain;
 import net.jtk.darkroleplay.blocks.ChoppingBlock.ChoppingBlock;
-import net.jtk.darkroleplay.blocks.Crate.BlockCrate;
+import net.jtk.darkroleplay.blocks.Crate.Crate;
 import net.jtk.darkroleplay.blocks.DungeonChest.DungeonChest;
 import net.jtk.darkroleplay.blocks.DungeonChest.TileEntityCustomDungeonChest;
 import net.jtk.darkroleplay.blocks.Firepits.LargeFirepit;
@@ -44,17 +44,15 @@ import net.jtk.darkroleplay.blocks.PearYellow.PearHangingYellow;
 import net.jtk.darkroleplay.blocks.PearYellow.PearStandingYellow;
 import net.jtk.darkroleplay.blocks.Potions.PotionEmpty;
 import net.jtk.darkroleplay.blocks.Potions.PotionRegenerationOne;
-import net.jtk.darkroleplay.blocks.Rope.BlockRope;
+import net.jtk.darkroleplay.blocks.Rope.Rope;
 import net.jtk.darkroleplay.blocks.ShipSteeringWheel.ShipSteeringWheel;
 import net.jtk.darkroleplay.blocks.Target.Target;
 import net.jtk.darkroleplay.blocks.Tombstones.TombstoneOne;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
-import net.jtk.darkroleplay.events.DarkRoleplayEventHandler;
 import net.jtk.darkroleplay.events.Event_PlayerInteract;
 import net.jtk.darkroleplay.events.Event_PlayerPickup;
 import net.jtk.darkroleplay.guis.GuiHandler;
 import net.jtk.darkroleplay.handler.DarkRoleplayDropHandler;
-import net.jtk.darkroleplay.handler.UpdateHandler;
 import net.jtk.darkroleplay.items.itemBatEar;
 import net.jtk.darkroleplay.items.itemCoinBronze;
 import net.jtk.darkroleplay.items.itemCoinGold;
@@ -64,7 +62,8 @@ import net.jtk.darkroleplay.items.itemFirewood;
 import net.jtk.darkroleplay.items.itemFlour;
 import net.jtk.darkroleplay.items.itemFurWolf;
 import net.jtk.darkroleplay.items.itemPurse;
-import net.jtk.darkroleplay.items.itemScrollTeleport;
+import net.jtk.darkroleplay.items.Magic.itemScrollTeleport;
+import net.jtk.darkroleplay.main.network.PacketHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -127,15 +126,7 @@ public class DarkRoleplay {
     	proxy.registerEvents();
     	proxy.bindTileEntity();
     	proxy.registerRenders();
-    	
-    	UpdateHandler.init();
-  
-    	if(UpdateHandler.Version != this.Version){
-    		
-    	}else{
-    		this.displayed = true;
-    	}
-    	
+
     	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler()); 
     	
     	
@@ -167,7 +158,8 @@ public class DarkRoleplay {
     	MainProxy.registerFood(event);
     	MainProxy.registerTileEntity(event);
 
+    	PacketHandler.init();
+    	
     	loadConfig.loadConfiguration(event);
-    	System.out.println("DEBUGJTK"+event.getSuggestedConfigurationFile());  
 	    }
 }

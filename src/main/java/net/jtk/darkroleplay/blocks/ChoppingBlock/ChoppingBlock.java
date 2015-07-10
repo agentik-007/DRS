@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
@@ -79,7 +80,7 @@ public class ChoppingBlock extends BlockContainer {
     }
     
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
     	if (worldIn.isRemote)
         {
@@ -87,31 +88,26 @@ public class ChoppingBlock extends BlockContainer {
         }
     	else
     	{
-    		if(playerIn.getHeldItem() != null){
-    			if(playerIn.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log))||playerIn.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log2))){
-    				if(playerIn.getHeldItem().stackSize <= 1){
-    					playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
-    					playerIn.getHeldItem().stackSize--;
-    					playerIn.inventory.consumeInventoryItem(playerIn.getHeldItem().getItem());
+    	if(player.inventory.getFirstEmptyStack() != -1){
+    		if(player.getHeldItem() != null){
+    			if(player.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log))||player.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log2))){
+    				if(player.getHeldItem().stackSize <= 1){
+    					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
     				}
     				else
     				{
-    				playerIn.getHeldItem().stackSize--;
+    					player.getHeldItem().stackSize--;
     				}
-					playerIn.inventory.addItemStackToInventory(new ItemStack(itemFirewood.itemFirewood, 4));         
-    				playerIn.inventory.notify();
-    				return true;
+					player.inventory.addItemStackToInventory(new ItemStack(itemFirewood.itemFirewood, 4));         
+    				player.inventory.notify();
     			}
-    			else{
-    				
-           		return true;
-    			}	
     		}
-    		else{
-    			return false;
-    		}
+    	}else{
+    		player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED +"warning.fullInventory"));
     	}
-    }
+    	return true;
+    	}
+	}
     
 	static {
 
@@ -127,6 +123,12 @@ public class ChoppingBlock extends BlockContainer {
 		return -1;
 	}
 
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
+	
 	public boolean isOpaqueCube() {
 		return false;
 	}

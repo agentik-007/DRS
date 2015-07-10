@@ -1,7 +1,9 @@
 itemGroup.DRMiscTab=DarkRoleplay Zeugs
 itemGroup.DRFoodTab=Dark Roleplay Essen
-itemGroup.DRBlocksTab=Dark Roleplay Blöcke
+itemGroup.DRBlocksTab=Dark Roleplay Dekoration
 
+keyBinding.openCrafting=Oeffnet das Crafting Fenster
+keyBinding.openInventory=Oeffnet das Inventar Fenster
 
 item.itemDough.name=Teig
 item.itemFlour.name=Mehl
@@ -18,6 +20,8 @@ item.itemCoinSilver.name=Silber Münze
 item.itemCoinGold.name=Gold Münze
 item.itemPurse.name=[W.I.P] Geldbeutel
 item.itemScrollTeleport.name=[W.I.P] Schriftrolle (Teleport)
+item.potionMana1.name=[W.I.P] Mana Trank (Klein)
+item.RingIron.name=[W.I.P]Eisen Ring
 
 tile.blockPlaceholder.name=Platzhalter
 tile.blockDungeonChest.name=[W.I.P] Dungeon Kiste
@@ -60,3 +64,4 @@ tile.blockKeyHanging.name=Hängende Schlüssel
 tile.blockBarrelGunPowder.name=Fass (Schwarzpulver)
 tile.blockBucketWater.name=Eimer (Wasser)
 tile.blockTarget.name=Zielscheibe
+tile.blockAnvil.name=Amboss

@@ -2,7 +2,7 @@ package net.jtk.darkroleplay.blocks.Barrels;
 
 import org.lwjgl.opengl.GL11;
 
-import net.jtk.darkroleplay.blocks.Rope.BlockRope;
+import net.jtk.darkroleplay.blocks.Rope.Rope;
 import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.jtk.darkroleplay.main.DarkRoleplayTabs;
 import net.minecraft.block.Block;

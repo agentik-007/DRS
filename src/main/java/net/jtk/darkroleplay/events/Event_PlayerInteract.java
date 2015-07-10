@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ibxm.Player;
-import net.jtk.darkroleplay.items.itemScrollTeleport;
+import net.jtk.darkroleplay.items.Magic.itemScrollTeleport;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

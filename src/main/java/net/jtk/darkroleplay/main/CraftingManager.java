@@ -18,7 +18,7 @@ public class CraftingManager {
 	//public static ArrayList<> = new ArrayList<>();
 	
 	public static void registerRecipe(Boolean enabled,ItemStack stack1, ItemStack stack2,ItemStack stack3,ItemStack stack4,ItemStack stack5,ItemStack stack6, Integer time, ItemStack output, Block craftingStation){
-		if(enabled){
+		//if(enabled){
 		List RecipeList = new ArrayList();
 		RecipeList.add(stack1);
 		RecipeList.add(stack2);
@@ -31,7 +31,7 @@ public class CraftingManager {
 		RecipeList.add(craftingStation);
 		
 		Recipes.add(RecipeList);
-		}
+		//}
 	}
 	
 	public static List getRecipe(Integer ID){
@@ -160,6 +160,7 @@ public class CraftingManager {
 				}
 			}
 			playerInv.addItemStackToInventory(new ItemStack(Output.getItem(), Output.stackSize));
+			
 		}
 	}
 	private boolean hasItemStack(ItemStack stack, EntityPlayer player){

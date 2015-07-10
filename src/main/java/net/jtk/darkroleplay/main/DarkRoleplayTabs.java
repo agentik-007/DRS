@@ -1,6 +1,7 @@
 package net.jtk.darkroleplay.main;
 
 import net.jtk.darkroleplay.blocks.blockPlaceholder;
+import net.jtk.darkroleplay.blocks.Buckets.BucketFlowerOne;
 import net.jtk.darkroleplay.items.itemDough;
 import net.jtk.darkroleplay.items.itemPear;
 import net.jtk.darkroleplay.items.itemPurse;
@@ -19,7 +20,7 @@ public class DarkRoleplayTabs {
 	public static CreativeTabs drBlocksTab = new CreativeTabs("DRBlocksTab") {
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem(){
-                return Item.getItemFromBlock(blockPlaceholder.blockPlaceholder);
+                return Item.getItemFromBlock(BucketFlowerOne.blockBucketFlowerOne);
         }
 	};
 	public static CreativeTabs drFoodTab = new CreativeTabs("DRFoodTab") {

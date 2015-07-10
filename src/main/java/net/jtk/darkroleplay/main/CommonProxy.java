@@ -34,7 +34,7 @@ import net.jtk.darkroleplay.blocks.Cauldrons.TileEntityCustomCauldron;
 import net.jtk.darkroleplay.blocks.Cauldrons.TileEntityCustomCauldronCookingOne;
 import net.jtk.darkroleplay.blocks.Chain.Chain;
 import net.jtk.darkroleplay.blocks.ChoppingBlock.ChoppingBlock;
-import net.jtk.darkroleplay.blocks.Crate.BlockCrate;
+import net.jtk.darkroleplay.blocks.Crate.Crate;
 import net.jtk.darkroleplay.blocks.Firepits.LargeFirepit;
 import net.jtk.darkroleplay.blocks.Firepits.SmallFirepit;
 import net.jtk.darkroleplay.blocks.Firepits.TileEntityCustomLargeFirepit;
@@ -53,13 +53,12 @@ import net.jtk.darkroleplay.blocks.Mushrooms.TileEntityCustomMushroomRed;
 import net.jtk.darkroleplay.blocks.PearYellow.PearHangingYellow;
 import net.jtk.darkroleplay.blocks.PearYellow.PearStandingYellow;
 import net.jtk.darkroleplay.blocks.PearYellow.TileEntityCustomPearHangingYellow;
-import net.jtk.darkroleplay.blocks.Rope.BlockRope;
+import net.jtk.darkroleplay.blocks.Rope.Rope;
 import net.jtk.darkroleplay.blocks.ShipSteeringWheel.ShipSteeringWheel;
 import net.jtk.darkroleplay.blocks.ShipSteeringWheel.TileEntityCustomShipSteeringWheel;
 import net.jtk.darkroleplay.blocks.Target.Target;
 import net.jtk.darkroleplay.blocks.Target.TileEntityCustomTarget;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
-import net.jtk.darkroleplay.events.DarkRoleplayEventHandler;
 import net.jtk.darkroleplay.events.Event_PlayerInteract;
 import net.jtk.darkroleplay.events.Event_PlayerPickup;
 import net.jtk.darkroleplay.handler.DarkRoleplayDropHandler;
@@ -79,7 +78,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+//import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -108,6 +109,11 @@ public class CommonProxy {
 		
 	}
 
+	public World getClientWorld(){
+	//	return FMLClientHandler.instance().getClient().theWorld;
+		return null;
+	}
+	
 }
 
 class DarkRoleplayFuelHandler implements IFuelHandler {

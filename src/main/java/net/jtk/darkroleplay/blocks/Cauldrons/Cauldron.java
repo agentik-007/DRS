@@ -97,6 +97,12 @@ public class Cauldron extends BlockContainer {
 	}
 
 	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
+	
+	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityCustomCauldron();
 	}

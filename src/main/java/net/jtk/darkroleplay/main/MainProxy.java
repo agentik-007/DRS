@@ -3,6 +3,8 @@ package net.jtk.darkroleplay.main;
 import java.io.File;
 
 import net.jtk.darkroleplay.blocks.blockPlaceholder;
+import net.jtk.darkroleplay.blocks.Anvil.Anvil;
+import net.jtk.darkroleplay.blocks.Anvil.TileEntityCustomAnvil;
 import net.jtk.darkroleplay.blocks.AppleGreen.AppleHangingGreen;
 import net.jtk.darkroleplay.blocks.AppleGreen.AppleStandingGreen;
 import net.jtk.darkroleplay.blocks.AppleGreen.TileEntityCustomAppleHangingGreen;
@@ -41,7 +43,7 @@ import net.jtk.darkroleplay.blocks.Chain.Chain;
 import net.jtk.darkroleplay.blocks.Chain.TileEntityCustomChain;
 import net.jtk.darkroleplay.blocks.ChoppingBlock.ChoppingBlock;
 import net.jtk.darkroleplay.blocks.ChoppingBlock.TileEntityCustomChoppingBlock;
-import net.jtk.darkroleplay.blocks.Crate.BlockCrate;
+import net.jtk.darkroleplay.blocks.Crate.Crate;
 import net.jtk.darkroleplay.blocks.Crate.TileEntityCustomCrate;
 import net.jtk.darkroleplay.blocks.DungeonChest.DungeonChest;
 import net.jtk.darkroleplay.blocks.DungeonChest.TileEntityCustomDungeonChest;
@@ -75,7 +77,7 @@ import net.jtk.darkroleplay.blocks.Potions.PotionEmpty;
 import net.jtk.darkroleplay.blocks.Potions.PotionRegenerationOne;
 import net.jtk.darkroleplay.blocks.Potions.TileEntityCustomPotionEmpty;
 import net.jtk.darkroleplay.blocks.Potions.TileEntityCustomPotionRegenerationOne;
-import net.jtk.darkroleplay.blocks.Rope.BlockRope;
+import net.jtk.darkroleplay.blocks.Rope.Rope;
 import net.jtk.darkroleplay.blocks.Rope.TileEntityCustomRope;
 import net.jtk.darkroleplay.blocks.ShipSteeringWheel.ShipSteeringWheel;
 import net.jtk.darkroleplay.blocks.ShipSteeringWheel.TileEntityCustomShipSteeringWheel;
@@ -85,10 +87,12 @@ import net.jtk.darkroleplay.blocks.Tombstones.TileEntityCustomTombstoneOne;
 import net.jtk.darkroleplay.blocks.Tombstones.TombstoneOne;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TileEntityCustomTrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
-import net.jtk.darkroleplay.events.DarkRoleplayEventHandler;
+import net.jtk.darkroleplay.events.Event_EntityConstruct;
+import net.jtk.darkroleplay.events.Event_LivingFall;
 import net.jtk.darkroleplay.events.Event_PlayerInteract;
 import net.jtk.darkroleplay.events.Event_PlayerPickup;
 import net.jtk.darkroleplay.handler.DarkRoleplayDropHandler;
+import net.jtk.darkroleplay.handler.KeyBindingManager;
 import net.jtk.darkroleplay.items.itemAppleGreen;
 import net.jtk.darkroleplay.items.itemAppleYellow;
 import net.jtk.darkroleplay.items.itemBatEar;
@@ -102,13 +106,17 @@ import net.jtk.darkroleplay.items.itemFurWolf;
 import net.jtk.darkroleplay.items.itemPear;
 import net.jtk.darkroleplay.items.itemPumpkinStew;
 import net.jtk.darkroleplay.items.itemPurse;
-import net.jtk.darkroleplay.items.itemScrollTeleport;
 import net.jtk.darkroleplay.items.itemVegieStew;
+import net.jtk.darkroleplay.items.potionMana1;
+import net.jtk.darkroleplay.items.Magic.itemScrollTeleport;
+import net.jtk.darkroleplay.items.Rings.RingIron;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -118,11 +126,15 @@ public class MainProxy {
 	
 	@EventHandler
 	public static void registerEvents(FMLInitializationEvent event){
+		MinecraftForge.EVENT_BUS.register(new Event_EntityConstruct());
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerPickup());
     	MinecraftForge.EVENT_BUS.register(new DarkRoleplayDropHandler());
-    	MinecraftForge.EVENT_BUS.register(new DarkRoleplayEventHandler());
     	MinecraftForge.EVENT_BUS.register(new Event_PlayerInteract());
+    	MinecraftForge.EVENT_BUS.register(new Event_LivingFall());
+    	
+    	
 	}
+	
 	
 	@EventHandler
 	public static void registerCrafting(FMLInitializationEvent event){
@@ -136,8 +148,8 @@ public class MainProxy {
 		/*Item Dough*/GameRegistry.addShapelessRecipe(new ItemStack(itemDough.itemDough,4),itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour,itemFlour.itemFlour, Items.water_bucket);
 		
 		/*Trainings Dummy*/GameRegistry.addRecipe(new ItemStack(TrainingsDummy.blockTrainingsDummy, 1), " X ", "ZXZ", " Z ", 'X', Blocks.hay_block, 'Z', Items.stick);
-		/*Crate*/GameRegistry.addRecipe(new ItemStack(BlockCrate.blockCrate , 1), "BXB", "X X", "BXB", 'X',Blocks.planks ,'B', Items.iron_ingot);
-		/*Rope*/GameRegistry.addRecipe(new ItemStack(BlockRope.blockRope, 1), " X ", " X ", " X ", 'X', Items.string);
+		/*Crate*/GameRegistry.addRecipe(new ItemStack(Crate.blockCrate , 1), "BXB", "X X", "BXB", 'X',Blocks.planks ,'B', Items.iron_ingot);
+		/*Rope*/GameRegistry.addRecipe(new ItemStack(Rope.blockRope, 1), " X ", " X ", " X ", 'X', Items.string);
 		/*Potion Regeneration One*/
 		/*Potion Empty*/
 		/*Pear Hanging Yellow*/GameRegistry.addRecipe(new ItemStack(PearHangingYellow.blockPearHangingYellow , 1), " X ", "   ", "   ", 'X', itemPear.itemPear);
@@ -151,13 +163,13 @@ public class MainProxy {
 		/*Cauldron*/GameRegistry.addRecipe(new ItemStack(Cauldron.blockCauldron, 1), " X ", "X X", " Z ", 'X', Items.iron_ingot, 'Z', Blocks.iron_block);
 		/*Mushroom Red*/
 		/*Mushroom Brown*/
-		/*Book One*/GameRegistry.addRecipe(new ItemStack(BlockRope.blockRope, 1), "   ", " X ", "   ", 'X', Items.book);
+		/*Book One*/GameRegistry.addRecipe(new ItemStack(Rope.blockRope, 1), "   ", " X ", "   ", 'X', Items.book);
 		/*Large Firepit*/GameRegistry.addRecipe(new ItemStack(LargeFirepit.blockLargeFirepit, 1), "   ", " Z ", "ZXZ", 'Z', itemFirewood.itemFirewood, 'X', SmallFirepit.blockSmallFirepit);
 		/*Small Firepit*/GameRegistry.addRecipe(new ItemStack(SmallFirepit.blockSmallFirepit, 1), " Z ", "ZZZ", "XXX", 'Z', itemFirewood.itemFirewood, 'X', Blocks.cobblestone);
 		/*Ship Steering Wheel*/
 		/*Key Hanging*/
 		/*Hanging Bridge Two*/GameRegistry.addRecipe(new ItemStack(HangingBridgeTwo.blockHangingBridgeTwo, 1), "   ", "   ", " XZ", 'X', HangingBridgeOne.blockHangingBridgeOne, 'Z', Blocks.log);
-		/*Hanging Bridge One*/GameRegistry.addRecipe(new ItemStack(HangingBridgeOne.blockHangingBridgeOne, 1), "Y Y", "Z Z", "XXX", 'X', Blocks.wooden_slab, 'Z', Items.string,'Y', BlockRope.blockRope);
+		/*Hanging Bridge One*/GameRegistry.addRecipe(new ItemStack(HangingBridgeOne.blockHangingBridgeOne, 1), "Y Y", "Z Z", "XXX", 'X', Blocks.wooden_slab, 'Z', Items.string,'Y', Rope.blockRope);
 		/*Barrel Gun Powder*/GameRegistry.addRecipe(new ItemStack(BarrelGunPowder.blockBarrelGunPowder, 1), "XXX", "XXX", " Z ", 'X', Items.gunpowder, 'Z', BarrelEmpty.blockBarrelEmpty);
 		/*Barrel Empty*/GameRegistry.addRecipe(new ItemStack(BarrelEmpty.blockBarrelEmpty, 1), "X X", "X X", "ZXZ", 'X', Blocks.planks, 'Z', Items.iron_ingot);
 		/*Barrel Closed*/GameRegistry.addRecipe(new ItemStack(BarrelClosed.blockBarrelClosed, 1), "XYX", "X X", "ZXZ", 'X', Blocks.planks, 'Z', Items.iron_ingot,'Y',Blocks.wooden_slab);
@@ -180,8 +192,44 @@ public class MainProxy {
 		Configuration config = new Configuration(new File("config/DarkRoleplay/CraftingConfig.cfg"));
 		config.load();
 		
-		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelEmpty.blockBarrelEmpty.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),null, null,null,null, 1, new ItemStack(BarrelEmpty.blockBarrelEmpty, 1), Blocks.crafting_table);
-		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelClosed.blockBarrelClosed.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),new ItemStack(Blocks.wooden_slab,1), null,null,null, 1, new ItemStack(BarrelClosed.blockBarrelClosed, 1), Blocks.crafting_table);
+		//CraftingManager.registerRecipe(config.get("CRAFTING" , "",true).getBoolean(),null,null,null,null,null,null,1,null,null);
+		
+		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelEmpty.blockBarrelEmpty.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),null, null,null,null, 1, new ItemStack(BarrelEmpty.blockBarrelEmpty, 1), null);
+		/*Barrel Empty*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelClosed.blockBarrelClosed.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.planks, 5),new ItemStack(Items.iron_ingot, 2),new ItemStack(Blocks.wooden_slab,1), null,null,null, 1, new ItemStack(BarrelClosed.blockBarrelClosed, 1), null);
+		/*Barrel Gunpowder*/CraftingManager.registerRecipe(config.get("CRAFTING", BarrelGunPowder.blockBarrelGunPowder.getUnlocalizedName(), true).getBoolean(), new ItemStack(Blocks.planks, 5), new ItemStack(Items.iron_ingot, 2), new ItemStack(Items.gunpowder, 9), null, null, null, 1, new ItemStack(BarrelGunPowder.blockBarrelGunPowder, 1), null);
+		/*Chopping Block*/CraftingManager.registerRecipe(config.get("CRAFTING", ChoppingBlock.blockChoppingBlock.getUnlocalizedName(), true).getBoolean(),new ItemStack(Blocks.log, 1), new ItemStack(Items.iron_axe,1),null,null,null,null,1,new ItemStack(ChoppingBlock.blockChoppingBlock,1),null);
+		/*Firepit Small*/CraftingManager.registerRecipe(config.get("CRAFTING" , SmallFirepit.blockSmallFirepit.getUnlocalizedName() ,true).getBoolean(),new ItemStack(itemFirewood.itemFirewood,5),new ItemStack(Blocks.cobblestone, 3),null,null,null,null,1,new ItemStack(SmallFirepit.blockSmallFirepit,1),null);
+		/*Firepit Large*/CraftingManager.registerRecipe(config.get("CRAFTING" , LargeFirepit.blockLargeFirepit.getUnlocalizedName() ,true).getBoolean(),new ItemStack(itemFirewood.itemFirewood,8),new ItemStack(Blocks.cobblestone, 5),null,null,null,null,1,new ItemStack(LargeFirepit.blockLargeFirepit,1),null);
+		/*Cauldron on a Firepit*/CraftingManager.registerRecipe(config.get("CRAFINT", CauldronCookingOne.blockCauldronCookingOne.getUnlocalizedName(),true).getBoolean(), new ItemStack(Items.iron_ingot, 12), new ItemStack(itemFirewood.itemFirewood, 5), null, null, null, null, 1, new ItemStack(CauldronCookingOne.blockCauldronCookingOne,1), null);
+		/*Cauldron*/CraftingManager.registerRecipe(config.get("CRAFTING",Cauldron.blockCauldron.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.iron_ingot,9), null,null,null,null,null,1,new ItemStack(Cauldron.blockCauldron,1), null);
+		/*Crate*/CraftingManager.registerRecipe(config.get("CRAFTING" , Crate.blockCrate.getUnlocalizedName() ,true).getBoolean(),new ItemStack(Blocks.planks, 4),new ItemStack(Items.iron_ingot, 4),null,null,null,null,1,new ItemStack(Crate.blockCrate ,1),null);
+		/*Bucket Empty*/CraftingManager.registerRecipe(config.get("CRAFTING" , BucketEmpty.blockBucketEmpty.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.planks , 3),null,null,null,null,null,1,new ItemStack(BucketEmpty.blockBucketEmpty,1),null);
+		/*Bucket Dirt*/CraftingManager.registerRecipe(config.get("CRAFTING" , BucketDirt.blockBucketDirt.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.planks, 3),new ItemStack(Blocks.dirt),null,null,null,null,1,new ItemStack(BucketDirt.blockBucketDirt, 1),null);
+		/*Bucket Flower Onhe*/CraftingManager.registerRecipe(config.get("CRAFTING" , BucketFlowerOne.blockBucketFlowerOne.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.planks, 3),new ItemStack(Blocks.dirt),new ItemStack(Blocks.red_flower,2,3),null,null,null,1,new ItemStack(BucketFlowerOne.blockBucketFlowerOne, 1),null);
+		/*Bucket Water*/CraftingManager.registerRecipe(config.get("CRAFTING" , BucketWater.blockBucketWater.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.planks ,3),null,null,null,null,null,1,new ItemStack(BucketWater.blockBucketWater, 1),Blocks.water);
+		/*Chain*/CraftingManager.registerRecipe(config.get("CRAFTING" , Chain.blockChain.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.iron_ingot,3),null,null,null,null,null,1,new ItemStack(Chain.blockChain,3),null);
+		/*Rope*/CraftingManager.registerRecipe(config.get("CRAFTING" , Rope.blockRope.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.string,3),null,null,null,null,null,1,new ItemStack(Rope.blockRope, 3),null);
+		/*Hanging Bridge center*/CraftingManager.registerRecipe(config.get("CRAFTING" , HangingBridgeOne.blockHangingBridgeOne.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.wooden_slab,3),new ItemStack(Items.string,2),new ItemStack(Rope.blockRope,2),null,null,null,1,new ItemStack(HangingBridgeOne.blockHangingBridgeOne,1),null);
+		/*Hanging Bridge*/CraftingManager.registerRecipe(config.get("CRAFTING" , HangingBridgeTwo.blockHangingBridgeTwo.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.wooden_slab,3),new ItemStack(Items.string,4),new ItemStack(Rope.blockRope,2),new ItemStack(Blocks.log,2),null,null,1,new ItemStack(HangingBridgeTwo.blockHangingBridgeTwo,1),null);
+		/*Book*/CraftingManager.registerRecipe(config.get("CRAFTING" , BookOne.blockBookOne.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.book,1),null,null,null,null,null,1,new ItemStack(BookOne.blockBookOne,1),null);
+		/*Hook*/CraftingManager.registerRecipe(config.get("CRAFTING" , Hook.blockHook.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.iron_ingot, 2),null,null,null,null,null,1, new ItemStack(Hook.blockHook,1),null);
+		/*Training Dummy*/CraftingManager.registerRecipe(config.get("CRAFTING" , TrainingsDummy.blockTrainingsDummy.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.stick,3),new ItemStack(Blocks.hay_block,2),null,null,null,null,1,new ItemStack(TrainingsDummy.blockTrainingsDummy,1),null);
+		/*Grindstone*/CraftingManager.registerRecipe(config.get("CRAFTING" , Grindstone.blockGrindstone.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.stone,1),new ItemStack(Blocks.log,1),new ItemStack(Items.iron_ingot,1),null,null,null,1,new ItemStack(Grindstone.blockGrindstone,1),null);
+		/*Ship Steering Wheel*/CraftingManager.registerRecipe(config.get("CRAFTING" , ShipSteeringWheel.blockShipSteeringWheel.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.planks,5),null,null,null,null,null,1,new ItemStack(ShipSteeringWheel.blockShipSteeringWheel,1),null);
+		/*Target*/CraftingManager.registerRecipe(config.get("CRAFTING" , Target.blockTarget.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.log,2),new ItemStack(Rope.blockRope,5),new ItemStack(Items.dye,2,1),null,null,null,1,new ItemStack(Target.blockTarget,1),null);
+		
+		/*Mushroom Red*/CraftingManager.registerRecipe(config.get("CRAFTING" , MushroomRed.blockMushroomRed.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.red_mushroom,1),null,null,null,null,null,1,new ItemStack(MushroomRed.blockMushroomRed,1),null);
+		/*Mushroom Brown*/CraftingManager.registerRecipe(config.get("CRAFTING" , MushroomBrown.blockMushroomBrown.getUnlocalizedName(),true).getBoolean(),new ItemStack(Blocks.brown_mushroom,1),null,null,null,null,null,1,new ItemStack(MushroomBrown.blockMushroomBrown,1),null);
+		
+		/*Apple Standing Red*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleStandingRed.blockAppleStandingRed.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.apple,1),null,null,null,null,null,1,new ItemStack(AppleStandingRed.blockAppleStandingRed,1),null);
+		/*Apple Hanging Red*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleHangingRed.blockAppleHangingRed.getUnlocalizedName(),true).getBoolean(),new ItemStack(Items.apple,1),null,null,null,null,null,1,new ItemStack(AppleHangingRed.blockAppleHangingRed,1),null);
+		/*Apple Standing Yellow*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleStandingYellow.blockAppleStandingYellow.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemAppleYellow.itemAppleYellow,1),null,null,null,null,null,1,new ItemStack(AppleStandingYellow.blockAppleStandingYellow,1),null);
+		/*Apple Hanging  Yellow*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleHangingYellow.blockAppleHangingYellow.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemAppleYellow.itemAppleYellow,1),null,null,null,null,null,1,new ItemStack(AppleHangingYellow.blockAppleHangingYellow,1),null);
+		/*Apple Standing Green*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleStandingGreen.blockAppleStandingGreen.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemAppleGreen.itemAppleGreen,1),null,null,null,null,null,1,new ItemStack(AppleStandingGreen.blockAppleStandingGreen,1),null);
+		/*Apple Hanging  Green*/CraftingManager.registerRecipe(config.get("CRAFTING" ,AppleHangingGreen.blockAppleHangingGreen.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemAppleGreen.itemAppleGreen,1),null,null,null,null,null,1,new ItemStack(AppleHangingGreen.blockAppleHangingGreen,1),null);
+		
+		/*Pear Hanging Yellow*/CraftingManager.registerRecipe(config.get("CRAFTING" , PearHangingYellow.blockPearHangingYellow.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemPear.itemPear,1),null,null,null,null,null,1,new ItemStack(PearHangingYellow.blockPearHangingYellow),null);
+		/*Pear Standing Yellow*/CraftingManager.registerRecipe(config.get("CRAFTING" , PearStandingYellow.blockPearStandingYellow.getUnlocalizedName(),true).getBoolean(),new ItemStack(itemPear.itemPear,1),null,null,null,null,null,1,new ItemStack(PearStandingYellow.blockPearStandingYellow),null);
 		
 		config.save();
 	}
@@ -204,8 +252,8 @@ public class MainProxy {
 		GameRegistry.registerBlock(ChoppingBlock.blockChoppingBlock, "blockChoppingBlock");
 		GameRegistry.registerBlock(Chain.blockChain, "blockChain");
 		GameRegistry.registerBlock(CauldronCookingTwo.blockCauldronCookingTwo, "blockCauldronCookingTwo");
-		GameRegistry.registerBlock(BlockRope.blockRope, "blockRope");
-		GameRegistry.registerBlock(BlockCrate.blockCrate, "blockCrate");
+		GameRegistry.registerBlock(Rope.blockRope, "blockRope");
+		GameRegistry.registerBlock(Crate.blockCrate, "blockCrate");
 		GameRegistry.registerBlock(CauldronCookingOne.blockCauldronCookingOne, "blockCauldronCookingOne");
 		GameRegistry.registerBlock(Cauldron.blockCauldron, "blockCauldron");
 		GameRegistry.registerBlock(MushroomRed.blockMushroomRed, "blockMushroomRed");
@@ -231,6 +279,7 @@ public class MainProxy {
 		GameRegistry.registerBlock(AppleHangingRed.blockAppleHangingRed, "blockAppleHangingRed");
 		GameRegistry.registerBlock(AppleStandingGreen.blockAppleStandingGreen, "blockAppleStandingGreen");
 		GameRegistry.registerBlock(AppleHangingGreen.blockAppleHangingGreen, "blockAppleHangingGreen");	
+		GameRegistry.registerBlock(Anvil.blockAnvil, "blockAnvil");
 		
 	}
 	@EventHandler
@@ -245,6 +294,13 @@ public class MainProxy {
 		GameRegistry.registerItem(itemFirewood.itemFirewood, "itemFirewood");
 		GameRegistry.registerItem(itemDough.itemDough, "itemDough");
 		GameRegistry.registerItem(itemBatEar.itemBatEar, "itemBatEar");
+		
+		//Rings
+		GameRegistry.registerItem(RingIron.RingIron, "RingIron");
+	
+		
+		//Scrolls
+		GameRegistry.registerItem(potionMana1.potionMana1, "potionMana1");
 	}
 	
 	@EventHandler
@@ -299,5 +355,6 @@ public class MainProxy {
 		GameRegistry.registerTileEntity(TileEntityCustomAppleHangingRed.class, "TileEntityAppleHangingRed");
 		GameRegistry.registerTileEntity(TileEntityCustomAppleStandingGreen.class, "TileEntityAppleStandingGreen");
 		GameRegistry.registerTileEntity(TileEntityCustomAppleHangingGreen.class, "TileEntityAppleHangingGreen");
+		GameRegistry.registerTileEntity(TileEntityCustomAnvil.class, "TileEntityAnvil");
 	}
 }

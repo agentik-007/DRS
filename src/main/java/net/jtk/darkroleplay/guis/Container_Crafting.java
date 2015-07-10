@@ -17,11 +17,11 @@ public class Container_Crafting extends Container{
 
         for (j = 0; j < 3; ++j){
         	for (k = 0; k < 9; ++k) {
-        		this.addSlotToContainer(new Slot(playerInv, k + j * 9 + 9, 20 + k * 18, 125 + j * 18 + i));
+        		this.addSlotToContainer(new Slot(playerInv, k + j * 9 + 9, 20 + k * 18, 126 + j * 18 + i));
         	}	
         }   
         for (h = 0; h < 9; ++h) {
-        	this.addSlotToContainer(new Slot(playerInv, h, 20 + h * 18, 183 + i));
+        	this.addSlotToContainer(new Slot(playerInv, h, 20 + h * 18, 184 + i));
         }
 	}
 	

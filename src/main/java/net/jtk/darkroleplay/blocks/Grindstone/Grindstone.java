@@ -1,11 +1,14 @@
 package net.jtk.darkroleplay.blocks.Grindstone;
 
+import java.util.Random;
+
 import org.lwjgl.opengl.GL11;
 
 import net.jtk.darkroleplay.guis.GuiHandler;
 import net.jtk.darkroleplay.main.CraftingManager;
 import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.jtk.darkroleplay.main.DarkRoleplayTabs;
+import net.jtk.darkroleplay.main.network.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -30,6 +33,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 
@@ -56,7 +60,7 @@ public class Grindstone extends BlockContainer {
 		blockGrindstone.setBlockBounds(1.0F / 16F * 0F, 0.0F, 1.0F / 16F * 0F,
 				1.0F / 16F * 16F, 1.0F / 16F * 16F, 1.0F / 16F * 16F);
 	}
-
+	
 	public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(DIR, Integer.valueOf(meta));
@@ -82,16 +86,12 @@ public class Grindstone extends BlockContainer {
     }
 	
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-    	if (worldIn.isRemote)
-        {
-    		playerIn.openGui(DarkRoleplay.instance, GuiHandler.GUI_CRAFTING, worldIn, pos.getX(), pos.getY(), pos.getZ());
-    		return true;
-        }
+    	if (!worldIn.isRemote){}
     	else
     	{
-    		playerIn.addChatMessage(new ChatComponentTranslation("This function is Work in Progress, sorry"));
+    		player.addChatMessage(new ChatComponentTranslation("This function is Work in Progress, sorry"));
     		
     	}
     	return true;
