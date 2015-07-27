@@ -40,11 +40,13 @@ public class Gui_Crafting extends GuiContainer{
 	EntityPlayer player = null;
 	
 	private Integer Page = 0;
-	private int maxPages = cm.Recipes.size()/3;
+	private int maxPages;
 	
 	private int xSize = 210;
 	private int ySize = 212;
 
+	private Block craftingStation = null;
+	
 	GuiButton craftingButton1; 
     GuiButton craftingButton2; 
     GuiButton craftingButton3;
@@ -79,10 +81,12 @@ public class Gui_Crafting extends GuiContainer{
 		
 	}
 	
-	public Gui_Crafting(Container container,EntityPlayer player1) {
+	public Gui_Crafting(Container container,EntityPlayer player1, Block craftingStation) {
 		super(container);
 		this.player = player1;
-	
+		this.craftingStation = craftingStation;
+
+		maxPages = ((ArrayList)cm.Recipes.get(craftingStation)).size()/3;
 	}
 	
 	@Override
@@ -110,17 +114,17 @@ public class Gui_Crafting extends GuiContainer{
 	protected void actionPerformed(GuiButton button) throws IOException{
 		switch(button.id){
 		case 0: 
-			PacketHandler.sendToServer(new PacketCraft(Page*3));
+			PacketHandler.sendToServer(new PacketCraft(this.craftingStation,Page*3));
 	    	//return true;
-			cm.craftItem(Page*3, player);
+			cm.craftItemClient(Block.getIdFromBlock(this.craftingStation),Page*3, player);
 			break;
 		case 1:
-			PacketHandler.sendToServer(new PacketCraft(Page*3+1));
-			cm.craftItem(Page*3+1,player);
+			PacketHandler.sendToServer(new PacketCraft(this.craftingStation,Page*3+1));
+			cm.craftItemClient(Block.getIdFromBlock(this.craftingStation),Page*3+1,player);
 			break;
 		case 2:
-			PacketHandler.sendToServer(new PacketCraft(Page*3+2));
-			cm.craftItem(Page*3+2, player);
+			PacketHandler.sendToServer(new PacketCraft(this.craftingStation,Page*3+2));
+			cm.craftItemClient(Block.getIdFromBlock(this.craftingStation),Page*3+2, player);
 			break;
 		case 3:
 			if(this.Page > 0){
@@ -144,17 +148,17 @@ public class Gui_Crafting extends GuiContainer{
 	}
  	
 	private void drawCrafting1(float partialTicks,int posX, int posY){
-		List Recipe = CraftingManager.getRecipe(Page * 3);
+		List Recipe = CraftingManager.getRecipe(this.craftingStation,Page * 3);
 		if(Recipe != null){
 				
-			ItemStack stack1 = (ItemStack) Recipe.get(0);
-			ItemStack stack2 = (ItemStack) Recipe.get(1);
-			ItemStack stack3 = (ItemStack) Recipe.get(2);
-			ItemStack stack4 = (ItemStack) Recipe.get(3);
-			ItemStack stack5 = (ItemStack) Recipe.get(4);
-				ItemStack stack6 = (ItemStack) Recipe.get(5);
-			Integer time = (Integer) Recipe.get(6);
-			ItemStack Output = (ItemStack) Recipe.get(7);
+			ItemStack Output = (ItemStack) Recipe.get(0);
+			ItemStack stack1 = (ItemStack) Recipe.get(1);
+			ItemStack stack2 = (ItemStack) Recipe.get(2);
+			ItemStack stack3 = (ItemStack) Recipe.get(3);
+			ItemStack stack4 = (ItemStack) Recipe.get(4);
+			ItemStack stack5 = (ItemStack) Recipe.get(5);
+			ItemStack stack6 = (ItemStack) Recipe.get(6);
+			
 			
 			if(canCraft(stack1,stack2,stack3,stack4,stack5,stack6)){
 				craftingButton1.enabled = true;
@@ -183,28 +187,20 @@ public class Gui_Crafting extends GuiContainer{
 			if(Output != null){
 				this.drawItemStack(Output, posX + 153,posY +16,true);
 			}
-			
-			if(time != null){
-				GlStateManager.disableLighting();
-            	GlStateManager.disableDepth();
-				// this.mc.fontRendererObj.drawStringWithShadow(time.toString() + "s", posX + 128, posY + 26, 0xffFFFFFF);
-				GlStateManager.enableLighting();
-            	GlStateManager.enableDepth();
-			}
 		}
 	}
 
 	private void drawCrafting2(float partialTicks,int posX, int posY){
-		List Recipe = CraftingManager.getRecipe(Page * 3 + 1);
+		List Recipe = CraftingManager.getRecipe(this.craftingStation,Page * 3+1);
 		if(Recipe != null){
-				ItemStack stack1 = (ItemStack) Recipe.get(0);
-				ItemStack stack2 = (ItemStack) Recipe.get(1);
-				ItemStack stack3 = (ItemStack) Recipe.get(2);
-				ItemStack stack4 = (ItemStack) Recipe.get(3);
-				ItemStack stack5 = (ItemStack) Recipe.get(4);
-				ItemStack stack6 = (ItemStack) Recipe.get(5);
-				Integer time = (Integer) Recipe.get(6);
-				ItemStack Output = (ItemStack) Recipe.get(7);	
+				
+			ItemStack Output = (ItemStack) Recipe.get(0);
+			ItemStack stack1 = (ItemStack) Recipe.get(1);
+			ItemStack stack2 = (ItemStack) Recipe.get(2);
+			ItemStack stack3 = (ItemStack) Recipe.get(3);
+			ItemStack stack4 = (ItemStack) Recipe.get(4);
+			ItemStack stack5 = (ItemStack) Recipe.get(5);
+			ItemStack stack6 = (ItemStack) Recipe.get(6);
 		
 				if(canCraft(stack1,stack2,stack3,stack4,stack5,stack6)){
 					craftingButton2.enabled = true;
@@ -233,27 +229,19 @@ public class Gui_Crafting extends GuiContainer{
 				if(Output != null){
 					this.drawItemStack(Output, posX + 153,posY + 51,true);
 				}
-				
-				if(time != null){
-					GlStateManager.disableLighting();
-		        	GlStateManager.disableDepth();
-					//this.mc.fontRendererObj.drawStringWithShadow(time.toString() + "s", posX + 128, posY + 61, 0xffFFFFFF);
-					GlStateManager.enableLighting();
-		        	GlStateManager.enableDepth();
-				}
 			}
 		}
 	private void drawCrafting3(float partialTicks,int posX, int posY){
-		List Recipe = CraftingManager.getRecipe(Page * 3 + 2);
+		List Recipe = CraftingManager.getRecipe(this.craftingStation,Page * 3+2);
 		if(Recipe != null){
-				ItemStack stack1 = (ItemStack) Recipe.get(0);
-				ItemStack stack2 = (ItemStack) Recipe.get(1);
-				ItemStack stack3 = (ItemStack) Recipe.get(2);
-				ItemStack stack4 = (ItemStack) Recipe.get(3);
-				ItemStack stack5 = (ItemStack) Recipe.get(4);
-				ItemStack stack6 = (ItemStack) Recipe.get(5);
-				Integer time = (Integer) Recipe.get(6);
-				ItemStack Output = (ItemStack) Recipe.get(7);	
+				
+			ItemStack Output = (ItemStack) Recipe.get(0);
+			ItemStack stack1 = (ItemStack) Recipe.get(1);
+			ItemStack stack2 = (ItemStack) Recipe.get(2);
+			ItemStack stack3 = (ItemStack) Recipe.get(3);
+			ItemStack stack4 = (ItemStack) Recipe.get(4);
+			ItemStack stack5 = (ItemStack) Recipe.get(5);
+			ItemStack stack6 = (ItemStack) Recipe.get(6);
 		
 				if(canCraft(stack1,stack2,stack3,stack4,stack5,stack6)){
 					craftingButton3.enabled = true;
@@ -281,14 +269,6 @@ public class Gui_Crafting extends GuiContainer{
 				}
 				if(Output != null){
 					this.drawItemStack(Output, posX + 153,posY + 86,true);
-				}
-				
-				if(time != null){
-					GlStateManager.disableLighting();
-		        	GlStateManager.disableDepth();
-					//this.mc.fontRendererObj.drawStringWithShadow(time.toString() + "s", posX + 128, posY + 61, 0xffFFFFFF);
-					GlStateManager.enableLighting();
-		        	GlStateManager.enableDepth();
 				}
 			}
 		}

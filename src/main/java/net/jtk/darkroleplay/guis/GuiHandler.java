@@ -41,7 +41,7 @@ public class GuiHandler implements IGuiHandler{
 		case GUI_CRATE:
 			return new Gui_Crate(new Container_Crate(player.inventory,(TileEntityCustomCrate) world.getTileEntity(new BlockPos(x,y,z))));
 		case GUI_CRAFTING:
-			return new Gui_Crafting(new Container_Crafting(player.inventory), player);
+			return new Gui_Crafting(new Container_Crafting(player.inventory), player, world.getBlockState(new BlockPos(x,y,z)).getBlock());
 		case GUI_INVENTORY:
 			return new GUIPlayerCustomInv(player, player.inventory, ExtendedPlayer.get(player).inventory);
 		default: 

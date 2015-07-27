@@ -24,18 +24,20 @@ public class customRendererHangingBridgeOne extends TileEntitySpecialRenderer {
 	}
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,double z, float f, int i) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
-		GL11.glRotatef(180, 0F, 0F, 1F);
-		PropertyInteger DIR = PropertyInteger.create("dir", 0, 15);
-		IBlockState state = tileentity.getWorld().getBlockState(tileentity.getPos());
-		int facing = (((Integer) state.getValue(DIR)).intValue());
-		GL11.glRotatef((facing-1) * 90, 0.0F, 1.0F, 0.0F); 
-		this.bindTexture(texture);
-
-		this.model.renderModel(0.0625F);
-
-		GL11.glPopMatrix();
+		if(tileentity.getWorld().getBlockState(tileentity.getPos()).getBlock().equals(HangingBridgeOne.blockHangingBridgeOne)){
+			GL11.glPushMatrix();
+			GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+			GL11.glRotatef(180, 0F, 0F, 1F);
+			PropertyInteger DIR = PropertyInteger.create("dir", 0, 15);
+			IBlockState state = tileentity.getWorld().getBlockState(tileentity.getPos());
+			int facing = (((Integer) state.getValue(DIR)).intValue());
+			GL11.glRotatef((facing-1) * 90, 0.0F, 1.0F, 0.0F); 
+			this.bindTexture(texture);
+	
+			this.model.renderModel(0.0625F);
+	
+			GL11.glPopMatrix();
+		}
 	}
 
 }

@@ -10,9 +10,11 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -52,19 +54,19 @@ public class KeyHanging extends BlockContainer{
 			 if (iblockstate.getBlock() == this){
 				 if (iblockstate.getValue(DIR).equals(1))
 	             {
-	                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.1875F, 1.0F, 1F);
+	                 this.setBlockBounds(0.0F, 0.2F, 0.375F, 0.25F, 0.8F, 0.625F);
 	             }
 				 else if(iblockstate.getValue(DIR).equals(2))
 				 {
-					 this.setBlockBounds(0.0F, 0.0F, 0.0F, 1, 1.0F, 0.1875F);
+					 this.setBlockBounds(0.375F, 0.2F, 0.0F,0.625F, 0.8F, 0.25F);
 				 }
 				 else if(iblockstate.getValue(DIR).equals(3))
 				 {
-					 this.setBlockBounds(0.8125F, 0.0F, 0.0F, 1, 1.0F, 1.0F);
+					 this.setBlockBounds(0.75F, 0.2F, 0.375F, 1.0F, 0.8F, 0.625F);
 				 }
 	             else
 	             {
-	                 this.setBlockBounds(0.0F, 0.0F, 0.8125F, 1.0F, 1.0F, 1.0F);
+	                 this.setBlockBounds(0.375F, 0.2F, 0.75F,  0.625F, 0.8F, 1.0F);
 	             }
 			 }
 		}
@@ -84,13 +86,21 @@ public class KeyHanging extends BlockContainer{
 		        return new BlockState(this, new IProperty[] {DIR});
 		    }
 		    
-		    @Override
-			public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
-		    	EntityPlayer entity =  (EntityPlayer) placer;
-				if(entity!=null){int i = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-				world.setBlockState(pos, state.withProperty(DIR, Integer.valueOf(i)), 3);
-				}
-				world.markBlockForUpdate(pos);
+		 	@Override
+		 	 public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+		    {
+		 		switch (facing){
+		 			case NORTH:
+		 				return this.getDefaultState().withProperty(DIR, 0);
+		 			case SOUTH:
+		 				return this.getDefaultState().withProperty(DIR, 2);
+		 			case EAST:
+		 				return this.getDefaultState().withProperty(DIR, 1);
+		 			case WEST:
+		 				return this.getDefaultState().withProperty(DIR, 3);
+		 			default:
+		 				return this.getDefaultState();
+		 		}
 		    }
 			
 			public int getRenderType() {
@@ -114,4 +124,33 @@ public class KeyHanging extends BlockContainer{
 		    {
 		        return false;
 		    }
+			
+			public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+		    {
+		    	if(!canBlockStay(worldIn, pos,state)){
+		    		this.dropBlockAsItem(worldIn, pos, state, 0);
+		    		worldIn.setBlockState(pos, Blocks.air.getDefaultState());
+		    		return;
+		    	}
+		    }
+			
+			 public boolean canBlockStay(World world, BlockPos pos, IBlockState state){
+				    
+			    	EnumFacing Facing = EnumFacing.SOUTH;
+			    	switch((Integer)state.getValue(DIR)){
+			    		case 0: Facing = EnumFacing.NORTH;
+			    		return world.isSideSolid(pos.south(), EnumFacing.NORTH);
+			    		case 1: Facing = EnumFacing.EAST;
+			    		return world.isSideSolid(pos.west(), EnumFacing.EAST);
+			    		case 2: Facing = EnumFacing.SOUTH;
+			    		return world.isSideSolid(pos.north(), EnumFacing.SOUTH);
+			    		case 3: Facing = EnumFacing.WEST;
+			    		return world.isSideSolid(pos.east(), EnumFacing.WEST);
+			    		default:
+			    			break;
+			    	}
+			    	
+			    	return true;
+			    }
+			
 	}

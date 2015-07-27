@@ -1,5 +1,6 @@
 package net.jtk.darkroleplay.blocks.Anvil;
 
+import net.jtk.darkroleplay.blocks.DungeonChest.DungeonChest;
 import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
@@ -25,19 +26,21 @@ public class customRendererAnvil extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y,
 			double z, float f, int i) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef((float) x + 0.5F, (float) y + 2F, (float) z + 0.5F);
-		GL11.glRotatef(180, 0F, 0F, 1F);
-		PropertyInteger DIR = PropertyInteger.create("dir", 0, 15);
-		IBlockState state = tileentity.getWorld().getBlockState(tileentity.getPos());
-		int facing = (((Integer) state.getValue(DIR)).intValue());
-		GL11.glRotatef((facing+1) * 90, 0.0F, 1.0F, 0.0F); 
-		this.bindTexture(texture);
-
-		//this.model.renderModel(0.0625F);
-		this.model.renderModel(0.08333333333333333333333333333333F);
-
-		GL11.glPopMatrix();
+		if(tileentity.getWorld().getBlockState(tileentity.getPos()).getBlock().equals(Anvil.blockAnvil)){
+			GL11.glPushMatrix();
+			GL11.glTranslatef((float) x + 0.5F, (float) y + 2F, (float) z + 0.5F);
+			GL11.glRotatef(180, 0F, 0F, 1F);
+			PropertyInteger DIR = PropertyInteger.create("dir", 0, 15);
+			IBlockState state = tileentity.getWorld().getBlockState(tileentity.getPos());
+			int facing = (((Integer) state.getValue(DIR)).intValue());
+			GL11.glRotatef((facing+1) * 90, 0.0F, 1.0F, 0.0F); 
+			this.bindTexture(texture);
+	
+			//this.model.renderModel(0.0625F);
+			this.model.renderModel(0.08333333333333333333333333333333F);
+	
+			GL11.glPopMatrix();
+		}
 	}
 
 }

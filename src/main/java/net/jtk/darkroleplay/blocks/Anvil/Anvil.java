@@ -56,17 +56,15 @@ public class Anvil extends BlockContainer {
 				1.0F / 16F * 16F, 1.0F / 16F * 15F, 1.0F / 16F * 16F);
 	}
 
-	@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
-    {    	
-    	if (!worldIn.isRemote){}
-    	else
-    	{
-    		player.addChatMessage(new ChatComponentTranslation("This function is Work in Progress, sorry"));
-    		
-    	}
-    	return true;
-    }
+	 @Override
+	    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
+	    {
+	    	if(!worldIn.isRemote)
+	        {
+	    		player.openGui(DarkRoleplay.instance, GuiHandler.GUI_CRAFTING, player.worldObj, pos.getX(), pos.getY(), pos.getZ());
+	    	}
+	    	return true;
+		}
 	
 	
 	public IBlockState getStateFromMeta(int meta)

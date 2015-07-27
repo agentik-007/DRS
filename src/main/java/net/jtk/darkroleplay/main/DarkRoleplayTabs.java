@@ -3,6 +3,7 @@ package net.jtk.darkroleplay.main;
 import net.jtk.darkroleplay.blocks.blockPlaceholder;
 import net.jtk.darkroleplay.blocks.Buckets.BucketFlowerOne;
 import net.jtk.darkroleplay.items.itemDough;
+import net.jtk.darkroleplay.items.itemFurWolf;
 import net.jtk.darkroleplay.items.itemPear;
 import net.jtk.darkroleplay.items.itemPurse;
 import net.jtk.darkroleplay.items.itemVegieStew;
@@ -32,7 +33,13 @@ public class DarkRoleplayTabs {
 	public static CreativeTabs drMiscTab = new CreativeTabs("DRMiscTab") {
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem(){
-                return itemPurse.itemPurse;
+                return itemFurWolf.itemFurWolf;
         }
+	};
+	public static CreativeTabs drEquipTab = new CreativeTabs("DREquipTab"){
+		@SideOnly(Side.CLIENT)
+		public Item getTabIconItem(){
+			return itemPurse.itemPurse;
+		}
 	};
 }

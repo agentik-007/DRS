@@ -48,6 +48,7 @@ import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketFlowerOne;
 import net.jtk.darkroleplay.blocks.Buckets.customRendererBucketWater;
 import net.jtk.darkroleplay.blocks.Cauldrons.Cauldron;
 import net.jtk.darkroleplay.blocks.Cauldrons.CauldronCookingOne;
+import net.jtk.darkroleplay.blocks.Cauldrons.CauldronCookingTwo;
 import net.jtk.darkroleplay.blocks.Cauldrons.TileEntityCustomCauldron;
 import net.jtk.darkroleplay.blocks.Cauldrons.TileEntityCustomCauldronCookingOne;
 import net.jtk.darkroleplay.blocks.Cauldrons.TileEntityCustomCauldronCookingTwo;
@@ -126,6 +127,15 @@ import net.jtk.darkroleplay.blocks.Tombstones.customRendererTombstoneOne;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TileEntityCustomTrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.TrainingsDummy;
 import net.jtk.darkroleplay.blocks.TrainingsDummy.customRendererTrainingsDummy;
+import net.jtk.darkroleplay.blocks.WallTorch.TileEntityCustomWallTorchEmpty;
+import net.jtk.darkroleplay.blocks.WallTorch.TileEntityCustomWallTorchLit;
+import net.jtk.darkroleplay.blocks.WallTorch.TileEntityCustomWallTorchUnlit;
+import net.jtk.darkroleplay.blocks.WallTorch.WallTorchEmpty;
+import net.jtk.darkroleplay.blocks.WallTorch.WallTorchLit;
+import net.jtk.darkroleplay.blocks.WallTorch.WallTorchUnlit;
+import net.jtk.darkroleplay.blocks.WallTorch.customRendererWallTorchEmpty;
+import net.jtk.darkroleplay.blocks.WallTorch.customRendererWallTorchLit;
+import net.jtk.darkroleplay.blocks.WallTorch.customRendererWallTorchUnlit;
 import net.jtk.darkroleplay.guis.hud.DRPGuiFood;
 import net.jtk.darkroleplay.guis.hud.DRPGuiHealth;
 import net.jtk.darkroleplay.guis.hud.DRPGuiTypeOne;
@@ -224,6 +234,9 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomBarrelGunPowder.class, new customRendererBarrelGunPowder());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomBucketWater.class, new customRendererBucketWater());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomAnvil.class, new customRendererAnvil());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomWallTorchEmpty.class, new customRendererWallTorchEmpty());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomWallTorchLit.class,new customRendererWallTorchLit());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustomWallTorchUnlit.class,new customRendererWallTorchUnlit());
 	}
 	
 	public void registerRenders(){
@@ -287,6 +300,10 @@ public class ClientProxy extends CommonProxy{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Anvil.blockAnvil),0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockAnvil", "inventory"));//ANVIL
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(RingIron.RingIron, 0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "RingIron", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(potionMana1.potionMana1,0, new ModelResourceLocation(DarkRoleplay.MODID + ":" + "potionMana1", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(WallTorchEmpty.blockWallTorchEmpty),0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockWallTorchEmpty","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(WallTorchLit.blockWallTorchLit),0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockWallTorchLit","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(WallTorchUnlit.blockWallTorchUnlit),0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockWallTorchUnlit","inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(CauldronCookingTwo.blockCauldronCookingTwo),0,new ModelResourceLocation(DarkRoleplay.MODID + ":" + "blockCauldronCookingTwo","inventory"));
 	}
 	
 	public World getClientWorld(){

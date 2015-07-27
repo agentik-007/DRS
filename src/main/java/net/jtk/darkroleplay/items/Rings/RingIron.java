@@ -9,6 +9,6 @@ public class RingIron extends RingBase{
 	static{
 		RingIron = (RingBase) new RingIron()
 		.setUnlocalizedName("RingIron")
-		.setCreativeTab(DarkRoleplayTabs.drMiscTab);
+		.setCreativeTab(DarkRoleplayTabs.drEquipTab);
 	}
 }

@@ -2,6 +2,7 @@ package net.jtk.darkroleplay.blocks.ChoppingBlock;
 
 import org.lwjgl.opengl.GL11;
 
+import net.jtk.darkroleplay.guis.GuiHandler;
 import net.jtk.darkroleplay.items.itemFirewood;
 import net.jtk.darkroleplay.main.DarkRoleplay;
 import net.jtk.darkroleplay.main.DarkRoleplayTabs;
@@ -82,31 +83,11 @@ public class ChoppingBlock extends BlockContainer {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-    	if (worldIn.isRemote)
+    	if(!worldIn.isRemote)
         {
-    		return true;
-        }
-    	else
-    	{
-    	if(player.inventory.getFirstEmptyStack() != -1){
-    		if(player.getHeldItem() != null){
-    			if(player.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log))||player.getHeldItem().getItem().equals(Item.getItemFromBlock(Blocks.log2))){
-    				if(player.getHeldItem().stackSize <= 1){
-    					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-    				}
-    				else
-    				{
-    					player.getHeldItem().stackSize--;
-    				}
-					player.inventory.addItemStackToInventory(new ItemStack(itemFirewood.itemFirewood, 4));         
-    				player.inventory.notify();
-    			}
-    		}
-    	}else{
-    		player.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED +"warning.fullInventory"));
+    		player.openGui(DarkRoleplay.instance, GuiHandler.GUI_CRAFTING, player.worldObj, pos.getX(), pos.getY(), pos.getZ());
     	}
     	return true;
-    	}
 	}
     
 	static {

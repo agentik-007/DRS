@@ -105,14 +105,13 @@ public class SmallFirepit extends BlockContainer {
     
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-    	float f1 = pos.getX() + 0.5F;
-    	float f2 = pos.getY() + 0.5F;
-    	float f3 = pos.getZ() + 0.5F;
-    	float f4 = rand.nextFloat() * 0.6F - 0.3F;
-    	float f5 = rand.nextFloat() * -0.6F - -0.3F;
-    	float f6 = rand.nextFloat() * 0.2F -0.1F;
-    	worldIn.spawnParticle(EnumParticleTypes.FLAME, (double)(f1+f4), (double)(f2+f6), (double)(f3+f5), 0.0D, 0.0D, 0.0D, new int[20]);
-    	worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)(f1+f4), (double)f2, (double)(f3+f5), 0.0D, 0.0D, 0.0D, new int[10]);
+    	Double x = (double) pos.getX()+0.25D;
+    	Double y = (double) pos.getY()+0.1D;
+    	Double z = (double) pos.getZ()+0.25D;
+    	for(int i = 0; i < 3; i++){
+    		worldIn.spawnParticle(EnumParticleTypes.FLAME, x + rand.nextDouble()/2, y + rand.nextDouble()/2, z+ rand.nextDouble()/2, 0.0D, 0.001D, 0.0D);
+    		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + rand.nextDouble()/2, y + rand.nextDouble()/2, z+ rand.nextDouble()/2, 0.0D, 0.1D, 0.0D);
+    	}
     }
     
 	public int getRenderType() {

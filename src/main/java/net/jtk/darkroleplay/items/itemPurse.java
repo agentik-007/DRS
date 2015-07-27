@@ -26,7 +26,7 @@ public class itemPurse extends Item{
 		itemPurse = new itemPurse()
 		.setUnlocalizedName("itemPurse")
 		.setMaxStackSize(1)
-		.setCreativeTab(DarkRoleplayTabs.drMiscTab);
+		.setCreativeTab(DarkRoleplayTabs.drEquipTab);
 	}
 	
 	@Override
